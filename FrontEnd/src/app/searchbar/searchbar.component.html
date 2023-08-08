@@ -1,0 +1,13 @@
+<input (keyup)="onKeyUp(tagSaisie.value)" type="text" #tagSaisie placeholder="Rechercher une vidéo..." aria-label="video" [matAutocomplete]="auto">
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelection($event)">
+    <mat-option *ngFor="let video of searchVideos" [value]="{'id': video.id, 'type':video.type}">
+        <i *ngIf="video.type=='Movie'" class="fas fa-film pe-1"></i>
+        <i *ngIf="video.type=='Serie'" class="fas fa-tv"></i>
+        {{video.title}}
+    </mat-option>
+    <mat-option *ngIf="noResult" [value]="tagSaisie.value">
+        <i class="fa-solid fa-magnifying-glass pe-2"></i>
+        Aucun résultat, lancer la recherche dans TMDB
+    </mat-option>
+</mat-autocomplete>
+

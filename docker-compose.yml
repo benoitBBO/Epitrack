@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+    psql-db:
+        image: "postgres:15.0-alpine"
+        container_name: psql-db
+        volumes:
+            - data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=adminadmin
+            - POSTGRES_DB=epitrackdb
+        ports:
+            - "5438:5432"
+    backend:
+        container_name: back
+        build: ./BackEnd
+        ports:
+            - "8080:8080"
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/epitrackdb
+            - SPRING_DATASOURCE_USERNAME=postgres
+            - SPRING_DATASOURCE_PASSWORD=adminadmin
+            - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+        links:
+            - psql-db
+    frontend:
+        container_name: front
+        build: ./FrontEnd
+        ports:
+            - "4200:80"
+        links:
+            - backend
+volumes:
+    data:
