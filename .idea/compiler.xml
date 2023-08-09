@@ -13,7 +13,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="epitrack" target="17" />
+      <module name="BackEnd" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
