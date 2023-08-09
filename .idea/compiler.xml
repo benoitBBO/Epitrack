@@ -12,5 +12,8 @@
         <module name="APPLICATION" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="epitrack" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

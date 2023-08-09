@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Epitrack.iml" filepath="$PROJECT_DIR$/.idea/Epitrack.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FrontEnd/FrontEnd.iml" filepath="$PROJECT_DIR$/FrontEnd/FrontEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/epitrack.iml" filepath="$PROJECT_DIR$/BackEnd/epitrack.iml" />
     </modules>
   </component>
 </project>
