@@ -1,10 +1,9 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {FormsModule} from '@angular/forms';
+import {Component, Input } from '@angular/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
 import { UserMovieService } from '../../services/user-movie.service';
 import { UserSerieService } from '../../services/user-serie.service';
 import { MessageService } from '../../services/message.service';
-import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserserieModel } from '../../models/userserie.model';
 import { UsermovieModel } from '../../models/usermovie.model';
@@ -28,8 +27,7 @@ export class ToggleComponent {
   
   constructor(private userMovieService: UserMovieService,
               private userSerieService: UserSerieService,
-              private messageService: MessageService,
-              private router: Router         
+              private messageService: MessageService       
             ){}
 
   ngOnInit(){

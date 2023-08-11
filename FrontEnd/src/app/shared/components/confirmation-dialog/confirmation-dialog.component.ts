@@ -12,7 +12,7 @@ import { createInjectableType } from '@angular/compiler';
 export class ConfirmationDialogComponent {
 
   @Output() confirmation = new EventEmitter<boolean>();
-  
+  //TODO ménage a faire 
 
   //constructor(public dialog:MatDialog){}
   constructor()  {}

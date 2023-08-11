@@ -6,7 +6,6 @@ import { UserMovieService } from '../shared/services/user-movie.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from '../shared/services/message.service';
 import { UsermovieModel } from '../shared/models/usermovie.model';
-import { TmdbmovieModel } from '../shared/models/tmdbmovie.model';
 import { UserModel } from '../shared/models/user.model';
 import { UserService } from '../shared/services/user.service';
 import { BehaviorSubject } from 'rxjs';

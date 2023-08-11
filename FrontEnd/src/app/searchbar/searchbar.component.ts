@@ -5,8 +5,6 @@ import { SerieService } from '../shared/services/serie.service';
 import { SerieModel } from '../shared/models/serie.model';
 import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { UserService } from '../shared/services/user.service';
-import { UserModel } from '../shared/models/user.model';
 import { UsermovieModel } from '../shared/models/usermovie.model';
 import { UserMovieService } from '../shared/services/user-movie.service';
 import { UserserieModel } from '../shared/models/userserie.model';
@@ -52,9 +50,10 @@ export class SearchbarComponent {
       this.serieService.searchSeriesFromApi(saisie)
         .subscribe((series:SerieModel[]) => {
           this.searchVideos.push(...series)
-          this.noResult = (this.searchVideos.length === 0);
+          this.noResult = true;
         });
     } else {
+      this.searchVideos = [];
       this.noResult = false;
     }
   }
