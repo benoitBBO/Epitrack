@@ -12,17 +12,20 @@ import { UserSerieService } from '../shared/services/user-serie.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, forkJoin } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-search-tmdb',
   templateUrl: './search-tmdb.component.html',
   styleUrls: ['./search-tmdb.component.css']
 })
+
 export class SearchTMDBComponent {
   movies: TmdbmovieModel[] = [];
   series: TmdbserieModel[] = [];
   search_input!:string;
   loggedUser!:UserModel;
+  selectedTabIndex: number = 0;
   
   constructor(private movieService: MovieService,
               private serieService: SerieService,
@@ -41,10 +44,31 @@ export class SearchTMDBComponent {
 
     //TODO routeReuseStrategy deprecated
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.movieService.searchMoviesFromTMDBApi(this.route.snapshot.params['search_input'])
-      .subscribe( (data:TmdbmovieModel[]) => this.movies = data);
-    this.serieService.searchSeriesFromTMDBApi(this.route.snapshot.params['search_input'])
-      .subscribe( (data:TmdbserieModel[]) => this.series = data);
+    this.loadData();
+  }
+
+  loadData() {
+    this.spinner.show();
+
+    this.movieService
+      .searchMoviesFromTMDBApi(this.route.snapshot.params['search_input'])
+      .subscribe((data: TmdbmovieModel[]) => {
+        this.movies = data;
+        this.loadSeries();
+      });
+  }
+
+  loadSeries() {
+    this.serieService
+      .searchSeriesFromTMDBApi(this.route.snapshot.params['search_input'])
+      .subscribe((data: TmdbserieModel[]) => {
+        this.series = data;
+        this.spinner.hide();
+      });
+  }
+
+  onTabChanged(event: MatTabChangeEvent): void {
+    this.selectedTabIndex = event.index;
   }
 
   onClickAddMovie(movieId:number) {

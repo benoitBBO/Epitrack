@@ -12,6 +12,7 @@
 .card h2 {
     font-size:1.2rem;
 }
+
 h2 {
     font-size: large;
     margin-bottom: 0px;
@@ -19,6 +20,15 @@ h2 {
     white-space: nowrap;
     overflow: hidden;
 }
+
 a {
     color: black;
+}
+
+::ng-deep .mat-mdc-tab-header {
+    margin-bottom: 20px;
+}
+
+i {
+    margin-right: 10px;
 }

@@ -17,7 +17,6 @@ import { SerieAccueilComponent } from './serie-accueil/serie-accueil.component';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { VideoDetailsComponent } from './video-details/video-details/video-details.component';
 import { UserAccueilComponent } from './user-accueil/user-accueil.component';
 import { UserMovieListComponent } from './user-movie-list/user-movie-list.component';
@@ -39,6 +38,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -65,7 +65,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     LogoutComponent,
     IsInCatalogPipe,
     StatusDisplayPipe,
-    ProfilComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +82,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatIconModule,
     MatFormFieldModule,
     MatButtonToggleModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatTabsModule
   ],
 
   providers: [
