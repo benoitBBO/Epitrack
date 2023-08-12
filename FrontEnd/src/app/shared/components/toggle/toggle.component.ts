@@ -7,6 +7,8 @@ import { MessageService } from '../../services/message.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserserieModel } from '../../models/userserie.model';
 import { UsermovieModel } from '../../models/usermovie.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-toggle',
@@ -27,7 +29,8 @@ export class ToggleComponent {
   
   constructor(private userMovieService: UserMovieService,
               private userSerieService: UserSerieService,
-              private messageService: MessageService       
+              private messageService: MessageService,
+              private dialog: MatDialog   
             ){}
 
   ngOnInit(){
@@ -89,26 +92,33 @@ export class ToggleComponent {
       this.confirmationMessage = 'Confirmez-vous vouloir remettre à "A voir" la serie ET toutes les saisons/épisodes ?';
     };
     
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: { message: this.confirmationMessage },
+    });
+
     //    si confirme non -> pas d'update en base + inverser this.checked pour le remettre à son état initial
     //    si confirme oui -> update en base serie/saisons/épisodes avec nouveau status
-    if (!confirm(this.confirmationMessage)) {
-      this.checked = !this.checked;
-    } else {
-      this.userSerieService.changeStatusUserSerie(this.userVideoId, this.status)
-      .subscribe({
-        next: (userserie:UserserieModel) => {
-          this.userSerieService._userserie$.next(userserie);
-          console.log(this.userSerieService._userserie$);
-          this.messageService.show("statut de la série mis à jour", "success");
-        },
-        error: (err:unknown) => {
-          if (err instanceof HttpErrorResponse){
-            this.checked = !this.checked;
-            this.messageService.show("erreur de mise à jour du statut", "error");
-          }
-        }
-      })
-    }
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userSerieService.changeStatusUserSerie(this.userVideoId, this.status)
+          .subscribe({
+            next: (userserie: UserserieModel) => {
+              this.userSerieService._userserie$.next(userserie);
+              console.log(this.userSerieService._userserie$);
+              this.messageService.show('Statut de la série mis à jour', 'success');
+            },
+            error: (err: unknown) => {
+              if (err instanceof HttpErrorResponse) {
+                this.checked = !this.checked;
+                this.messageService.show('erreur de mise à jour du statut', 'error');
+              }
+            },
+          });
+      } else {
+        this.checked = !this.checked;
+      }
+    });
   }
   
   changedForSeason(){
@@ -120,27 +130,34 @@ export class ToggleComponent {
     } else {
       this.confirmationMessage = 'Confirmez-vous vouloir remettre à "A voir" la saison ET TOUS ses épisodes ?';
     };
-    
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: { message: this.confirmationMessage },
+    });
+
     //    si confirme non -> pas d'update en base + inverser this.checked pour le remettre à son état initial
     //    si confirme oui -> update en base serie/saisons/épisodes avec nouveau status
-    if (!confirm(this.confirmationMessage)) {
-      this.checked = !this.checked;
-    } else {
-      this.userSerieService.changeStatusUserSeason(this.userSerieId, this.userVideoId, this.status)
-      .subscribe({
-        next: (userserie:UserserieModel) => {
-          console.log("après update status, userserie= ", userserie);
-          this.userSerieService._userserie$.next(userserie);
-          this.messageService.show("statut de la saison mis à jour", "success");
-        },
-        error: (err:unknown) => {
-          if (err instanceof HttpErrorResponse){
-            this.checked = !this.checked;
-            this.messageService.show("erreur de mise à jour du statut", "error");
-          }
-        }
-      })
-    }
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userSerieService.changeStatusUserSeason(this.userSerieId, this.userVideoId, this.status)
+          .subscribe({
+            next: (userserie: UserserieModel) => {
+              this.userSerieService._userserie$.next(userserie);
+              console.log(this.userSerieService._userserie$);
+              this.messageService.show('Statut de la saison mis à jour', 'success');
+            },
+            error: (err: unknown) => {
+              if (err instanceof HttpErrorResponse) {
+                this.checked = !this.checked;
+                this.messageService.show('erreur de mise à jour du statut', 'error');
+              }
+            },
+          });
+      } else {
+        this.checked = !this.checked;
+      }
+    });
   }
 
   changedForEpisode(){

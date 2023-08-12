@@ -1,0 +1,3 @@
+::ng-deep .mat-mdc-slide-toggle {
+    --mdc-switch-state-layer-size: 35px;
+}

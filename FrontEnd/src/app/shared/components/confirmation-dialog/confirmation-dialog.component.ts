@@ -1,29 +1,14 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import {MatDialog, MatDialogRef, MatDialogModule, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { createInjectableType } from '@angular/compiler';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-confirmation-dialog',
-  templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.css']
+  styleUrls: ['./confirmation-dialog.component.css'],
+  templateUrl: './confirmation-dialog.component.html'
 })
 export class ConfirmationDialogComponent {
-
-  @Output() confirmation = new EventEmitter<boolean>();
-  //TODO ménage a faire 
-
-  //constructor(public dialog:MatDialog){}
-  constructor()  {}
-
-  onConfirmNo(){
-    this.confirmation.emit(false);
-  }
-
-  onConfirmYes(){
-    this.confirmation.emit(true);
-  }
-
-
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { message: string }
+  ) {}
 }

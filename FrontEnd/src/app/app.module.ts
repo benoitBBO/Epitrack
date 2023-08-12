@@ -39,6 +39,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatFormFieldModule,
     MatButtonToggleModule,
     NgxSpinnerModule,
-    MatTabsModule
+    MatTabsModule,
+    MatButtonModule
   ],
 
   providers: [

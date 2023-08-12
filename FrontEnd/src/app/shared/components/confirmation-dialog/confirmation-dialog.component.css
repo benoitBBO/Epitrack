@@ -1,0 +1,6 @@
+button {
+    margin-right: 8px;
+}
+::ng-deep .mat-mdc-dialog-actions {
+    justify-content: end;
+}
