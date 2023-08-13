@@ -20,8 +20,8 @@ export class MovieListComponent {
   movies: MovieModel[] = []; //Utilisé pour l'affichage
   originalMovies: MovieModel[] = []; //Sauvegarde des movies pour effectuer les tris/filtres
   genres: string[] = [];
-  btnsSortClass = "btn btn-secondary btn-sm";
-  btnsFilterClass = "btn btn-secondary btn-sm";
+  btnsSortClass = "btn btn-light btn-sm";
+  btnsFilterClass = "btn btn-light btn-sm";
   displaySort: string = "";
   genreFiltered: string = "";
   displayBtnSort: boolean = false;
@@ -171,14 +171,14 @@ export class MovieListComponent {
     this.movies = this.movies.slice().sort((a, b) => a.title.localeCompare(b.title, 'fr', {ignorePunctuation: true}));
     this.displaySort = "Ordre alphabétique (A-Z)";
     this.displayBtnSort = true;
-    this.btnsSortClass = "btn btn-success btn-sm";
+    this.btnsSortClass = "btn btn-warning btn-sm";
   }
 
   onClickSortByAlphabeticalOrderZa(){
     this.movies = this.movies.slice().sort((a, b) => b.title.localeCompare(a.title, 'fr', {ignorePunctuation: true}));
     this.displaySort = "Ordre alphabétique (Z-A)";
     this.displayBtnSort = true;
-    this.btnsSortClass = "btn btn-success btn-sm";
+    this.btnsSortClass = "btn btn-warning btn-sm";
   }
 
   onClickSortByRatingAsc(){
@@ -193,7 +193,7 @@ export class MovieListComponent {
     });
     this.displaySort = "Notation (Croissante)";
     this.displayBtnSort = true;
-    this.btnsSortClass = "btn btn-success btn-sm";
+    this.btnsSortClass = "btn btn-warning btn-sm";
   }
 
   onClickSortByRatingDsc(){
@@ -208,19 +208,19 @@ export class MovieListComponent {
     });
     this.displaySort = "Notation (Décroissante)";
     this.displayBtnSort = true;
-    this.btnsSortClass = "btn btn-success btn-sm";
+    this.btnsSortClass = "btn btn-warning btn-sm";
   }
 
   onClickResetSort(){
     this.movies = this.originalMovies;
     this.displayBtnSort = false;
-    this.btnsSortClass = "btn btn-secondary btn-sm";
+    this.btnsSortClass = "btn btn-light btn-sm";
   }
 
   onClickResetFilter(){
     this.movies = this.originalMovies;
     this.displayResetFiterBtn = false;
-    this.btnsFilterClass = "btn btn-secondary btn-sm";
+    this.btnsFilterClass = "btn btn-light btn-sm";
   }
 
   onClickFilter(genre:string){
@@ -236,6 +236,6 @@ export class MovieListComponent {
     );
     this.genreFiltered = genre;
     this.displayResetFiterBtn = true;
-    this.btnsFilterClass = "btn btn-success btn-sm";
+    this.btnsFilterClass = "btn btn-warning btn-sm";
   }
 }

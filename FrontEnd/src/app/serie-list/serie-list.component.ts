@@ -20,8 +20,8 @@ export class SerieListComponent {
   series: SerieModel[] = [];
   originalSeries: SerieModel[] = []; //Sauvegarde des series pour effectuer les tris/filtres
   genres: string[] = [];
-  btnsSortClass = "btn btn-secondary btn-sm";
-  btnsFilterClass = "btn btn-secondary btn-sm";
+  btnsSortClass = "btn btn-light btn-sm";
+  btnsFilterClass = "btn btn-light btn-sm";
   displaySort: string = "";
   genreFiltered: string = "";
   displayBtnSort: boolean = false;
@@ -165,14 +165,14 @@ export class SerieListComponent {
     this.series= this.series.slice().sort((a, b) => a.title.localeCompare(b.title, 'fr', {ignorePunctuation: true}));
     this.displaySort = "Ordre alphabétique (A-Z)";
     this.displayBtnSort = true;
-    this.btnsSortClass = "btn btn-success btn-sm";
+    this.btnsSortClass = "btn btn-warning btn-sm";
   }
 
   onClickSortByAlphabeticalOrderZa(){
     this.series= this.series.slice().sort((a, b) => b.title.localeCompare(a.title, 'fr', {ignorePunctuation: true}));
     this.displaySort = "Ordre alphabétique (Z-A)";
     this.displayBtnSort = true;
-    this.btnsSortClass = "btn btn-success btn-sm";
+    this.btnsSortClass = "btn btn-warning btn-sm";
   }
 
   onClickSortByRatingAsc(){
@@ -187,7 +187,7 @@ export class SerieListComponent {
     });
     this.displaySort = "Notation (Croissante)";
     this.displayBtnSort = true;
-    this.btnsSortClass = "btn btn-success btn-sm";
+    this.btnsSortClass = "btn btn-warning btn-sm";
   }
 
   onClickSortByRatingDsc(){
@@ -202,19 +202,19 @@ export class SerieListComponent {
     });
     this.displaySort = "Notation (Décroissante)";
     this.displayBtnSort = true;
-    this.btnsSortClass = "btn btn-success btn-sm";
+    this.btnsSortClass = "btn btn-warning btn-sm";
   }
 
   onClickResetSort(){
     this.series = this.originalSeries;
     this.displayBtnSort = false;
-    this.btnsSortClass = "btn btn-secondary btn-sm";
+    this.btnsSortClass = "btn btn-light btn-sm";
   }
 
   onClickResetFilter(){
     this.series = this.originalSeries;
     this.displayResetFiterBtn = false;
-    this.btnsFilterClass = "btn btn-secondary btn-sm";
+    this.btnsFilterClass = "btn btn-light btn-sm";
   }
 
   onClickFilter(genre:string){
@@ -230,6 +230,6 @@ export class SerieListComponent {
     );
     this.genreFiltered = genre;
     this.displayResetFiterBtn = true;
-    this.btnsFilterClass = "btn btn-success btn-sm";
+    this.btnsFilterClass = "btn btn-warning btn-sm";
   }
 }

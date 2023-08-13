@@ -11,7 +11,7 @@
 </div>
 
 <div id="divBtnsFilters" *ngIf="currentUrl !== '/'" class="mb-3">
-    <button [class]="btnsSortClass" mat-button [matMenuTriggerFor]="sort">Trier par : </button>
+    <button [class]="btnsSortClass" [matMenuTriggerFor]="sort">Trier par : </button>
     <mat-menu #sort="matMenu">
         <button (click)="onClickSortByAlphabeticalOrderAz()" mat-menu-item>Ordre alphabétique (A-Z)</button>
         <button (click)="onClickSortByAlphabeticalOrderZa()" mat-menu-item>Ordre alphabétique (Z-A)</button>
@@ -20,7 +20,7 @@
     </mat-menu>
     <button *ngIf="displayBtnSort" [class]="btnsSortClass" (click)="onClickResetSort()" [class]="btnsSortClass" ><i class="fa fa-times"></i> {{displaySort}}</button>
     <br>
-    <button [class]="btnsFilterClass" mat-button [matMenuTriggerFor]="filter">Filtrer par genre : </button>
+    <button [class]="btnsFilterClass" [matMenuTriggerFor]="filter">Filtrer par genre : </button>
     <mat-menu #filter="matMenu">
         <div *ngFor="let genre of genres">
             <button (click)="onClickFilter(genre)" mat-menu-item>{{genre}}</button>

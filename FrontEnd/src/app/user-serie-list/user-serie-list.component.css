@@ -36,9 +36,9 @@ a {
 }
 
 .mat-button-toggle {
-    background-color:#6c757d;
-    color: #fff;
+    background-color:#d6d6d6;
+    color: #000000;
 }
 .mat-button-toggle-checked {
-    background-color:#198754;
+    background-color:#ffd740;
 } 
