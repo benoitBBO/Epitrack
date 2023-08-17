@@ -8,6 +8,6 @@ public class CalculServiceImpl implements ICalculService {
     public Integer computeAverage(Integer totalRating, Integer voteCount, Integer newVote, Integer previousVote) {
         Boolean isNewRating = previousVote == null ? true : false;
         previousVote = isNewRating ? 0 : previousVote;
-        return isNewRating ? (((totalRating*voteCount)+ newVote) / (voteCount + 1)) : (((totalRating*voteCount) - previousVote + newVote) / (voteCount));
+        return isNewRating ? (((totalRating*voteCount)+ newVote*1000) / (voteCount + 1)) : (((totalRating*voteCount) - previousVote*1000 + newVote*1000) / (voteCount));
     }
 }

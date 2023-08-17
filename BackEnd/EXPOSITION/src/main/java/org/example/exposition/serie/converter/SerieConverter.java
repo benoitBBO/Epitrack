@@ -45,7 +45,9 @@ public class SerieConverter {
         dto.setTitle(entity.getTitle());
         dto.setOverview(entity.getOverview());
         dto.setReleaseDate(entity.getReleaseDate());
-        dto.setTotalRating(entity.getTotalRating());
+        if (entity.getTotalRating() != null) {
+            dto.setTotalRating((int) Math.floor((double) entity.getTotalRating() / 1000 + 0.5));
+        }
         dto.setImagePosterUrl(entity.getImagePosterUrl());
         dto.setImageLandscapeUrl(entity.getImageLandscapeUrl());
         dto.setImdbRef(entity.getImdbRef());
@@ -59,7 +61,9 @@ public class SerieConverter {
         dto.setTitle(entity.getTitle());
         dto.setOverview(entity.getOverview());
         dto.setReleaseDate(entity.getReleaseDate());
-        dto.setTotalRating(entity.getTotalRating());
+        if (entity.getTotalRating() != null) {
+            dto.setTotalRating((int) Math.floor((double) entity.getTotalRating() / 1000 + 0.5));
+        }
         dto.setImagePosterUrl(entity.getImagePosterUrl());
         dto.setImageLandscapeUrl(entity.getImageLandscapeUrl());
         dto.setImdbRef(entity.getImdbRef());
@@ -77,8 +81,15 @@ public class SerieConverter {
         return mapper.map(dto,Serie.class);
     }
     public SerieMinDto convertEntityToMinDto(Serie entity){
-        ModelMapper mapper=new ModelMapper();
-        return mapper.map(entity,SerieMinDto.class);
+        SerieMinDto dto = new SerieMinDto();
+        dto.setId(entity.getId());
+        dto.setTitle(entity.getTitle());
+        dto.setReleaseDate(entity.getReleaseDate());
+        if (entity.getTotalRating() != null) {
+            dto.setTotalRating((int) Math.floor((double) entity.getTotalRating() / 1000 + 0.5));
+        }
+        dto.setImageLandscapeUrl(entity.getImageLandscapeUrl());
+        return dto;
     }
 
     //Converter TMDB / Entity

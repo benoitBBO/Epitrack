@@ -30,10 +30,13 @@ public class MovieConverter {
     public MovieDetailDto convertEntityToDetailDto(Movie entity){
         MovieDetailDto dto = new MovieDetailDto();
         dto.setId(entity.getId());
+
         dto.setTitle(entity.getTitle());
         dto.setOverview(entity.getOverview());
         dto.setReleaseDate(entity.getReleaseDate());
-        dto.setTotalRating(entity.getTotalRating());
+        if (entity.getTotalRating() != null) {
+            dto.setTotalRating((int) Math.floor((double) entity.getTotalRating() / 1000 + 0.5));
+        }
         dto.setImagePosterUrl(entity.getImagePosterUrl());
         dto.setImageLandscapeUrl(entity.getImageLandscapeUrl());
         dto.setGenres(entity.getGenres());
@@ -47,8 +50,15 @@ public class MovieConverter {
         return mapper.map(dto,Movie.class);
     }
     public MovieMinDto convertEntityToMinDto(Movie entity){
-        ModelMapper mapper=new ModelMapper();
-        return mapper.map(entity,MovieMinDto.class);
+        MovieMinDto dto = new MovieMinDto();
+        dto.setId(entity.getId());
+        dto.setTitle(entity.getTitle());
+        dto.setReleaseDate(entity.getReleaseDate());
+        if (entity.getTotalRating() != null) {
+            dto.setTotalRating((int) Math.floor((double) entity.getTotalRating() / 1000 + 0.5));
+        }
+        dto.setImageLandscapeUrl(entity.getImageLandscapeUrl());
+        return dto;
     }
 
     //Converter TMDB / Entity
