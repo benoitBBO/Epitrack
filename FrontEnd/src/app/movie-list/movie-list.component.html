@@ -34,6 +34,7 @@
 
 
 <div class="row">
+    <p *ngIf="movies.length == 0"  class="d-flex justify-content-center p-4">Aucun film au catalogue</p>
     <div *ngFor="let movie of movies; let i = index;" class="col-12 col-md-3">
         <div class="card">
             <!-- Changement d'url dynamique avec ajout ou suppression du catalogue-->

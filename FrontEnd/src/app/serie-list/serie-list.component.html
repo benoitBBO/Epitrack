@@ -30,6 +30,7 @@
 </div>
 
 <div class="row">
+    <p *ngIf="series.length == 0" class="d-flex justify-content-center p-4">Aucune série au catalogue</p>
     <div *ngFor="let serie of series; let i = index;" class="col-12 col-md-3">
         <div class="card">
             <!-- Changement d'url dynamique avec ajout ou suppression du catalogue-->

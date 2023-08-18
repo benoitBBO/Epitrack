@@ -20,6 +20,7 @@
 <!--Filters UserMovies-->
 
 <div class="row">
+    <p *ngIf="movies.length == 0" class="d-flex justify-content-center p-4">Aucun film dans mon catalogue</p>
     <div *ngFor="let movie of movies" class="col-12 col-md-3">
         <div class="card">
             <img [src]="movie.movie.image_landscape != null ? (movie.movie.image_landscape | printImg) : './assets/img/noimage.png'"

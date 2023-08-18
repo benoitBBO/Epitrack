@@ -21,6 +21,7 @@
 <!--Filters UserSeries-->
 
 <div class="row">
+    <p *ngIf="series.length == 0" class="d-flex justify-content-center p-4">Aucune série dans mon catalogue</p>
     <div *ngFor="let userserie of series" class="col-12 col-md-3">
         <div class="card">
             <img [src]="userserie.serie.image_landscape != null ? (userserie.serie.image_landscape | printImg) : './assets/img/noimage.png'"
