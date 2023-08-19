@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { UserModel } from './shared/models/user.model';
 import { UserService } from './shared/services/user.service';
+import { MessageService } from './shared/services/message.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +14,36 @@ import { UserService } from './shared/services/user.service';
 export class AppComponent {
   title = 'epitrack2_front';
   loggedUser!: UserModel;
-  
+  confirmationMessage: string = "";
 
-  constructor(private userService:UserService){}
+  constructor(private router:Router,
+              private userService:UserService,
+              private messageService: MessageService,
+              private dialog: MatDialog
+              ){}
 
   ngOnInit() {
     console.log("ngOnInit de app-component");
     //charger loggedUSer
     this.userService._loggedUser$.subscribe((user:any) => this.loggedUser=user );
     console.log(this.loggedUser);
-   
+  }
 
+  logout() {
+    this.confirmationMessage = 'Confirmez-vous vouloir vous déconnecter ?';
+    
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: { message: this.confirmationMessage },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userService.clearLoggedUserAndSessionStorage();
+        this.messageService.show('Vous êtes bien déconnecté', 'success');
+        this.router.navigate(['/']);
+      }
+    });
   }
   
 }

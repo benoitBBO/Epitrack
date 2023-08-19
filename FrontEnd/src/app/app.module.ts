@@ -29,7 +29,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SearchTMDBComponent } from './search-tmdb/search-tmdb.component';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { LogoutComponent } from './auth/logout/logout.component';
 import { IsInCatalogPipe } from './shared/pipes/is-in-catalog.pipe';
 import { StatusDisplayPipe } from './shared/pipes/status-display.pipe';
 import { ProfilComponent } from './auth/profil/profil.component';
@@ -63,7 +62,6 @@ import { MatButtonModule } from '@angular/material/button';
     UserSerieAccueilComponent,
     SearchTMDBComponent,
     ConfirmationDialogComponent,
-    LogoutComponent,
     IsInCatalogPipe,
     StatusDisplayPipe,
     ProfilComponent

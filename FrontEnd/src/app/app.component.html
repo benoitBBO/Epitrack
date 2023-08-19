@@ -22,7 +22,7 @@
           <button [matMenuTriggerFor]="menu3" class="btn btn-light"><i class="fas fa-user"></i></button>
           <mat-menu #menu3="matMenu">
             <button mat-menu-item routerLink="/profil"><a class="navbar-brand">Mon profil</a></button>
-            <button mat-menu-item  routerLink="/logout"><a class="navbar-brand">Se déconnecter</a></button>
+            <button mat-menu-item (click)="logout()"><a class="navbar-brand">Se déconnecter</a></button>
          </mat-menu>
         </div>
         
