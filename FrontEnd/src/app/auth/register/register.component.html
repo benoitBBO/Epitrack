@@ -2,13 +2,13 @@
     <form (submit)="onRegisterSubmit($event)" [formGroup]="registerForm">
 
         <h1>Mes informations de Connexion</h1>
-        
+
         <div class="mb-3">
-            <label for="username-id" class="form-label">Nom d'utilisateur (*obligatoire)</label>
+            <label for="username-id" class="form-label">Nom d'utilisateur*</label>
             <input id="username-id" formControlName="userName" class="form-control" type="text">
-            <p class="error" 
+            <p class="error"
                *ngIf="registerForm.controls['userName'].invalid && isSubmitted">
-              Nom d'utilisateur*
+              nom d'utilisateur obligatoire
             </p>
         </div>
 
@@ -17,9 +17,9 @@
             <label for="pwd-id" class="form-label">Mot de passe*</label>
             <input id="pwd-id" formControlName="password" type="password" class="form-control">
             <div id="pwd-HelpBlock" class="form-text">
-              Votre mot de passe doit contenir au moins 8 caractères dont au moins une majuscule, une chiffre et un caractère spécial
+              Votre mot de passe doit contenir au moins 8 caractères dont au moins une majuscule, un chiffre et un caractère spécial
             </div>
-            <p class="error" 
+            <p class="error"
                *ngIf="(passwordForm.controls['password'].hasError('required') ||
                        passwordForm.controls['password'].hasError('pattern'))
                       && isSubmitted">
@@ -28,12 +28,12 @@
           </div>
 
           <div class="mb-3">
-            <label for="pwd2-id" class="form-label">Confirmation Mot de passe*</label>
+            <label for="pwd2-id" class="form-label">Confirmation mot de passe*</label>
             <input id="pwd2-id" formControlName="confirmPassword" type="password" class="form-control">
             <p class="error"
               *ngIf="(passwordForm.controls['confirmPassword'].hasError('required') ||
                       registerForm.controls['passwords'].hasError('confirmEqual'))
-                      
+
                       && isSubmitted">
               confirmation mot de passe invalide
             </p>
@@ -43,9 +43,9 @@
 
         <h1>Mes informations personnelles</h1>
         <div class="mb-3">
-          <label for="email-id" class="form-label">Adresse Email (*obligatoire)</label>
+          <label for="email-id" class="form-label">Adresse Email*</label>
           <input id="email-id" formControlName="email" type="email" class="form-control">
-          <p class="error" 
+          <p class="error"
              *ngIf="registerForm.controls['email'].invalid && isSubmitted">
             email invalide
           </p>
@@ -59,9 +59,9 @@
         <div class="mb-3">
             <label for="lastname-id" class="form-label">Nom</label>
             <input id="lastname-id" formControlName="lastName" class="form-control" type="text">
-        </div>      
-                
+        </div>
+
         <button type="submit" class="btn btn-primary">S'inscrire</button>
-        
+
     </form>
 </div>

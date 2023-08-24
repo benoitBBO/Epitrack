@@ -37,6 +37,7 @@ public class UserProfileServiceTest {
         //...
         when(userProfileRepository.findByUserName("TestUsername")).thenReturn(Optional.of(mockedUserProfile));
         when(userProfileRepository.findByUserName("NotFoundUsername")).thenReturn(Optional.of(new UserProfile()));
+        when(userProfileRepository.findByUserName("NotFoundUsername2")).thenReturn(Optional.empty());
     }
     @Test
     public void test_should_inputMissingException_when_findByUsernameEmpty(){
@@ -44,9 +45,14 @@ public class UserProfileServiceTest {
                 () -> userProfileService.findUserProfileByUsername(""));
     }
     @Test
-    public void test_should_resourceNotFoundException_when_findByUsernameNotExist(){
+    public void test_should_resourceNotFoundException_when_findByUsernameNotExist_null(){
         assertThrows(ResourceNotFoundException.class,
                 () -> userProfileService.findUserProfileByUsername("NotFoundUserName"));
+    }
+    @Test
+    public void test_should_resourceNotFoundException_when_findByUsernameNotExist_empty(){
+        assertThrows(ResourceNotFoundException.class,
+                () -> userProfileService.findUserProfileByUsername("NotFoundUserName2"));
     }
     @Test
     public void test_should_return_UserProfile_when_findByUsernameOK(){

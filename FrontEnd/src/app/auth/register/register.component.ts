@@ -20,7 +20,7 @@ export class RegisterComponent {
   confirmPasswordControl!:FormControl;
   isSubmitted:boolean = false;
   inputUser:UserModel = new UserModel({});
-  
+
   constructor(private fb:FormBuilder,
             private userService:UserService,
             private msgService:MessageService,
@@ -29,13 +29,13 @@ export class RegisterComponent {
 
   ngOnInit(){
     this.initFormControls();
-        
+
     this.registerForm = this.fb.group({
       userName:['', [Validators.required]],
       passwords: this.passwordForm,
       email:['', [Validators.required, Validators.email]],
       firstName:[''],
-      lastName:['']     
+      lastName:['']
     });
   }
 
@@ -57,24 +57,23 @@ export class RegisterComponent {
       }
       let mainValue = ctl.get(main)!.value;
       let confirmValue = ctl.get(confirm)!.value;
-      console.log("mdp1et2 = ", mainValue, confirmValue);
       if (mainValue === confirmValue) {
         return null;    //validator OK
       } else {
-        return {confirmEqual:"erreur : valeurs différentes"}; 
+        return {confirmEqual:"erreur : valeurs différentes"};
       };
     };
   }
 
   onRegisterSubmit(ev:Event){
     this.isSubmitted = true;
-    
+
     this.inputUser.userName = this.registerForm.value.userName;
     this.inputUser.password = this.registerForm.value.passwords.password;
     this.inputUser.email = this.registerForm.value.email;
     this.inputUser.firstName = this.registerForm.value.firstName;
     this.inputUser.lastName = this.registerForm.value.lastName;
-    
+
     if(this.registerForm.valid){
       this.userService.register(this.inputUser)
       .subscribe( {
@@ -96,12 +95,12 @@ export class RegisterComponent {
                 break;
               default:
                 this.msgService.show("code Http: "+errorObj.description+ "description: "+errorObj.description, "error");
-            }          
+            }
           }
         }
-        
+
       })
     }
   }
- 
+
 }
