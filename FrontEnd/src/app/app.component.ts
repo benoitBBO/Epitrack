@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'epitrack2_front';
+  title = 'Epitrack';
   loggedUser!: UserModel;
   confirmationMessage: string = "";
 
@@ -23,10 +23,8 @@ export class AppComponent {
               ){}
 
   ngOnInit() {
-    console.log("ngOnInit de app-component");
     //charger loggedUSer
     this.userService._loggedUser$.subscribe((user:any) => this.loggedUser=user );
-    console.log(this.loggedUser);
   }
 
   logout() {

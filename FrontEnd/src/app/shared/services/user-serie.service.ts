@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { UserserieModel } from '../models/userserie.model';
-import { SerieModel } from '../models/serie.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSerieService {
 
-  EPITRACK_API = 'http://localhost:8080/api/v1';
+  EPITRACK_API = 'http://localhost:8080/api/v1'; //TODO a mettre en constante
   
   public _userseries$ = new BehaviorSubject<UserserieModel[]>([]);
   public _userserie$ = new BehaviorSubject<any>(UserserieModel);
@@ -36,7 +35,6 @@ export class UserSerieService {
   }
 
   getBest4UserSeriesFromApi(userid:number):Observable<UserserieModel[]> {
-    console.log("getBest4UserSeriesFromApi  --- id= ",userid);
     let endpoint = '/userserie/best4/';
     return this.http.get( this.EPITRACK_API + endpoint + userid)
       .pipe( map( (response:any) => 

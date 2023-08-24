@@ -6,12 +6,9 @@ import { UserSerieService } from '../../services/user-serie.service';
 
 @Component({
   selector: 'app-stars',
-  //templateUrl: './stars.component.html',
   template : `
-  
   <!-- Template score "editable=false" -->
   <div *ngIf="!editable" [innerHTML]="iconStr"></div>
-
   <!-- Template score "editable=true" -->
   <div *ngIf="editable" id="appStarVote">
     <i 
@@ -113,7 +110,6 @@ export class StarsComponent {
         //Envoi du PUT pour MAJ de la note
         this.userMovieService.updateUserRating(this.userRating).subscribe( {
           next: (response:any) => {
-            console.log("retour post updateRating",response);
             this.msgService.show("Votre vote a bien été pris en compte", "success");
             this.hasVoted = true;
           },
@@ -144,7 +140,6 @@ export class StarsComponent {
         //Envoi du PUT pour MAJ de la note
         this.userSerieService.updateUserRating(this.userRating).subscribe( {
           next: (response:any) => {
-            console.log("retour post updateRating",response);
             this.msgService.show("Votre vote a bien été pris en compte", "success");
             this.hasVoted = true;
           },

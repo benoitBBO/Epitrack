@@ -34,7 +34,6 @@ export class ToggleComponent {
             ){}
 
   ngOnInit(){
-    console.log("status toggle= ", this.status);
     if (this.status == "WATCHED") {
       this.checked = true;
     }
@@ -70,13 +69,12 @@ export class ToggleComponent {
     .subscribe({
       next: (usermovie: UsermovieModel) => {
         this.userMovieService._usermovie$.next(usermovie);
-        console.log("Ok next");
-        this.messageService.show("statut du film mis à jour", "success");
+        this.messageService.show("Statut du film mis à jour", "success");
       },
       error: (err:unknown) => {
         if (err instanceof HttpErrorResponse){
           this.checked = !this.checked;
-          this.messageService.show("erreur de mise à jour du statut", "error");
+          this.messageService.show("Erreur de mise à jour du statut", "error");
         }
       }
     });
@@ -105,13 +103,12 @@ export class ToggleComponent {
           .subscribe({
             next: (userserie: UserserieModel) => {
               this.userSerieService._userserie$.next(userserie);
-              console.log(this.userSerieService._userserie$);
               this.messageService.show('Statut de la série mis à jour', 'success');
             },
             error: (err: unknown) => {
               if (err instanceof HttpErrorResponse) {
                 this.checked = !this.checked;
-                this.messageService.show('erreur de mise à jour du statut', 'error');
+                this.messageService.show('Erreur de mise à jour du statut', 'error');
               }
             },
           });
@@ -144,13 +141,12 @@ export class ToggleComponent {
           .subscribe({
             next: (userserie: UserserieModel) => {
               this.userSerieService._userserie$.next(userserie);
-              console.log(this.userSerieService._userserie$);
               this.messageService.show('Statut de la saison mis à jour', 'success');
             },
             error: (err: unknown) => {
               if (err instanceof HttpErrorResponse) {
                 this.checked = !this.checked;
-                this.messageService.show('erreur de mise à jour du statut', 'error');
+                this.messageService.show('Erreur de mise à jour du statut', 'error');
               }
             },
           });
@@ -170,7 +166,7 @@ export class ToggleComponent {
       error: (err:unknown) => {
         if (err instanceof HttpErrorResponse){
           this.checked = !this.checked;
-          this.messageService.show("erreur de mise à jour du statut", "error");
+          this.messageService.show("Erreur de mise à jour du statut", "error");
         }
       }
     });

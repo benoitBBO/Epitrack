@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserMovieService } from '../shared/services/user-movie.service';
 import { Router } from '@angular/router';
 import { UsermovieModel } from '../shared/models/usermovie.model';
@@ -20,7 +20,6 @@ export class UserMovieListComponent {
   constructor(private router:Router,
               private userMovie:UserMovieService,
               private userService:UserService) {
-    console.log("constructor MovieService : ", this);
   }
 
   ngOnInit() {

@@ -88,8 +88,6 @@ export class ProfilComponent {
           this.userService.clearLoggedUserAndSessionStorage();
           this.msgService.show("mot de passe modifié avec succès. Vous devez vous reconnecter", "success");
           this.router.navigate(['/login']);
-          //ou rappeler nous même la fonction login pour avoir un nouveau token
-          // + findUser pour recharger le saveLoggedUser et recharger le sessionStorage
         }
      })
     }

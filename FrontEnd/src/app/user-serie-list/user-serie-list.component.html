@@ -31,23 +31,7 @@
                 <div class=" d-flex align-items-center justify-content-between">
                     <h2 [routerLink]='["/details", userserie.id, "Serie", "in", "userCatalog"]'>
                         {{userserie.serie.title}}
-                    </h2>
-                    
-                    <!-- <div> -->
-                        <!-- <button type="button" class="btn" -->
-                                <!-- (click)="updateStatusOfUserSerie(userserie.id,'WATCHED')"  -->
-                                <!-- [class.btn-info]="userserie.status=='WATCHED'"  -->
-                                <!-- [class.btn-light]="userserie.status!='WATCHED'" -->
-                                <!-- [disabled]="userserie.status=='WATCHED'"> -->
-                            <!-- Déjà Vu</button> -->
-                        <!-- <button type="button" class="btn" -->
-                                <!-- (click)="updateStatusOfUserSerie(userserie.id,'UNWATCHED')"  -->
-                                <!-- [class.btn-info]="userserie.status=='UNWATCHED'" -->
-                                <!-- [class.btn-light]="userserie.status!='UNWATCHED'" -->
-                                <!-- [disabled]="userserie.status=='UNWATCHED'"> -->
-                            <!-- A voir</button> -->
-                    <!-- </div> -->
-                    
+                    </h2>                   
                     <app-toggle [status]="userserie.status" 
                                 [userVideoId]="userserie.id"
                                 videoType="SERIE">

@@ -28,7 +28,6 @@ export class UserMovieService {
           "id": idUser
       }
     }
-    console.log('avant post /usermovie', data);
     return this.http.post( this.EPITRACK_API + endpoint, data, {responseType:'json'});
   }
 

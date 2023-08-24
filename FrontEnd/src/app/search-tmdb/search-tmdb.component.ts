@@ -42,7 +42,6 @@ export class SearchTMDBComponent {
       this.loggedUser=user;
     });
 
-    //TODO routeReuseStrategy deprecated
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.loadData();
   }

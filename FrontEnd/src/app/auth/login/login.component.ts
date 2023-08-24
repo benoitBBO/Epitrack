@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { UserModel } from 'src/app/shared/models/user.model';
 import { MessageService } from 'src/app/shared/services/message.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -41,7 +39,6 @@ export class LoginComponent {
               this.userService.findUser(response.username)
                .subscribe( {
                   next: (response:any) => {
-                    console.log("reponse findUser", response);
                     this.userService.saveLoggedUser(response)
                     .then( (resolve) => {
                       this.msgService.show("Vous êtes connecté", "success");

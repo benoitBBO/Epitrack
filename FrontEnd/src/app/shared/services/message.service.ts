@@ -13,7 +13,6 @@ export class MessageService {
               ) { }
 
   show(msg:string, type?:'error' | 'success' | 'info'){
-    console.log("show, msg: ", msg, " , type: ", type);
      
     if(type=='error'){
       this._snackbar.open(msg, 'Fermer', {
@@ -32,8 +31,6 @@ export class MessageService {
   }
 
   openConfirmDialog(msg:string):void{
-    console.log("confirm, msg: ", msg);
-    //this._dialog.open(ConfirmationDialogComponent, {message:msg});
     this._dialog.open(ConfirmationDialogComponent);
   }
 

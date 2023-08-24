@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BehaviorSubject } from 'rxjs';
 import { MovieModel } from 'src/app/shared/models/movie.model';
-import { SeasonModel } from 'src/app/shared/models/season.model';
 import { SerieModel } from 'src/app/shared/models/serie.model';
 import { UserModel } from 'src/app/shared/models/user.model';
 import { UsermovieModel } from 'src/app/shared/models/usermovie.model';
@@ -122,7 +121,7 @@ export class VideoDetailsComponent {
           this.loaded = true;
           this.userSeasons = data.userSeasons;
           this.isSeasonNumberZero = this.doesSeasonsIncludesZero(this.userSerie.userSeasons, "userSerie");
-          this.activeSeason = data.userSeasons[0]; //##TODO possibilité de gérer dynamiquement en fonction d'où en était le visionnage
+          this.activeSeason = data.userSeasons[0];
 
 
           //Gestion des acteurs pour affichage
@@ -337,7 +336,7 @@ export class VideoDetailsComponent {
             this.userSerieService._userseries$ = new BehaviorSubject<any>(response);
             // this.userOwned = "out";
 
-            //Refresh de la page
+            //TODO - Refresh de la page ou repartir sur /userAccueil
             this.redirectTo(this.router.url.replace("/in/catalog", "/out/catalog"));
             this.messageService.show("Serie retirée du catalogue avec succès", "success");
             this.spinner.hide();

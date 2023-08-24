@@ -1,9 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { MessageService } from './message.service';
 import { UserModel } from '../models/user.model';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +14,7 @@ export class UserService {
   public _loggedUser$ = new BehaviorSubject<any>(UserModel);
 
   constructor(private http:HttpClient,
-              private msgService:MessageService,
-              private router:Router) { }
+              private msgService:MessageService) { }
 
   
   get loggedUser$():Observable<UserModel> {
@@ -51,7 +49,6 @@ export class UserService {
 
   register(user:UserModel){
     let endpoint = '/users/register';
-    console.log("user= ", user);
     return this.http.post(this.EPITRACK_API+endpoint, user, {responseType:'text'});
   }
 
@@ -77,7 +74,6 @@ export class UserService {
 
   updateUser(user:UserModel){
     
-    console.log("update user: ", user);
     let endpoint = '/users';
     return this.http.put(this.EPITRACK_API+endpoint, user, {responseType:'text'})
       .pipe(
@@ -98,14 +94,6 @@ export class UserService {
   }
 
   saveLoggedUser(user:any){   
-    sessionStorage.setItem('id',user.id);
-    sessionStorage.setItem('username',user.userName);
-    sessionStorage.setItem('lastname',user.lastName);
-    sessionStorage.setItem('firstname',user.firstName);
-    sessionStorage.setItem('email',user.email);
-
-    //TODO en double sessionStorage + loggedUser => OK on laisse les 2
-    // password présent dans le loggedUser pour pouvoir le modifier
     this._loggedUser$.next(user);
     return new Promise( (resolve, reject) => {
       if (this.loggedUser == null) {

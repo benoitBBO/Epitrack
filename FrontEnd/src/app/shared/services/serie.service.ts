@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, Observable, map, forkJoin } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { SerieModel } from '../models/serie.model';
 import { TmdbserieModel } from '../models/tmdbserie.model';
 import { TmdbserieDetailDtoModel } from '../models/tmdbserie-detail-dto.model';
 import { TmdbepisodeDetailDtoModel } from '../models/tmdbepisode-detail-dto.model';
-import { TmdbseasonDetailDtoModel } from '../models/tmdbseason-detail-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +17,6 @@ export class SerieService {
 
   private _series$ = new BehaviorSubject<SerieModel[]>([]);
   private _serie$ = new BehaviorSubject<any>(SerieModel);
-  private _serieId$ = new BehaviorSubject<number>(777);
 
   constructor(private http: HttpClient) {
     console.log("construteur Serie => ", this)

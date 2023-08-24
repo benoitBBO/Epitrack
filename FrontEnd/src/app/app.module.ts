@@ -32,10 +32,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { IsInCatalogPipe } from './shared/pipes/is-in-catalog.pipe';
 import { StatusDisplayPipe } from './shared/pipes/status-display.pipe';
 import { ProfilComponent } from './auth/profil/profil.component';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatIconModule} from '@angular/material/icon'; 
-import {MatFormFieldModule} from '@angular/material/form-field'; 
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon'; 
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
@@ -87,7 +87,6 @@ import { MatButtonModule } from '@angular/material/button';
   ],
 
   providers: [
-    // {provide : HTTP_INTERCEPTORS, useClass : ErrorInterceptor, multi:true},
     {
     provide : HTTP_INTERCEPTORS, 
     useClass : TokenInterceptor,

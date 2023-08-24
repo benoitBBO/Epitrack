@@ -19,7 +19,6 @@ export class MovieService {
 
 
   constructor(private http: HttpClient) {
-    console.log("construteur Movie => ", this)
   }
 
   getMoviesFromApi():Observable<MovieModel[]> {
@@ -46,14 +45,6 @@ export class MovieService {
             response.map((movie:any) => new MovieModel(movie)) ) )
   }
 
-  // getMovieById(id: number):void {
-  //   let endpoint = '/movies/' + id;
-  //     this.http.get(this.EPITRACK_API + endpoint)
-  //         .pipe( map( (response:any) => 
-  //           new MovieModel(response)) )
-  //     .subscribe(data => this._movie$.next(data));
-      
-  // }
   getMovieById(id: number):Observable<MovieModel> {
     let endpoint = '/movies/' + id;
       return this.http.get(this.EPITRACK_API + endpoint)

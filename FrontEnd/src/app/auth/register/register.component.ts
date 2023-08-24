@@ -1,5 +1,4 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ParseError } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -78,7 +77,6 @@ export class RegisterComponent {
       this.userService.register(this.inputUser)
       .subscribe( {
         next: (response:any) => {
-          console.log("inscription ok"+response);
           this.msgService.show("Compte créé avec succès", "success");
           this.router.navigate(['/login']);
         },

@@ -54,8 +54,7 @@ export class UserSerieListComponent {
     this.userSerieService.changeStatusUserSerie(userVideoId, newStatus)
       .subscribe({
         next: (response:any) => {
-          console.log("next");
-          this.messageService.show("statut mis à jour", "success");
+          this.messageService.show("Statut mis à jour", "success");
           //mise à jour de la vue series (grâce à _userseries$ BehaviorSubject)
           oldUserSerieList = this.userSerieService.userseries;
           oldUserSerieList.forEach(userSerie => {
@@ -68,7 +67,7 @@ export class UserSerieListComponent {
         } ,
         error: (err:unknown) => {
           if (err instanceof HttpErrorResponse){
-            this.messageService.show("erreur de mise à jour du statut", "error");
+            this.messageService.show("Erreur de mise à jour du statut", "error");
           }
         }
       } )
