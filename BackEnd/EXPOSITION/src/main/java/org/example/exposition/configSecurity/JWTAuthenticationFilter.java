@@ -57,7 +57,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Map<String, Object> body = new HashMap<>();
         body.put("token", "Bearer "+jwt);
         body.put("username", springUser.getUsername());
-        System.out.println("succesfullAuthentication ; token = "+jwt);
         response.getWriter().write(new ObjectMapper().writeValueAsString(body));
         response.setContentType("application/json");
     }

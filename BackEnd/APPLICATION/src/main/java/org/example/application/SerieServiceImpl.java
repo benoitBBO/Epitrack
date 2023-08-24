@@ -2,13 +2,9 @@ package org.example.application;
 
 import org.example.application.util.ICalculService;
 import org.example.domaine.catalog.Episode;
-import org.example.domaine.catalog.Movie;
 import org.example.domaine.catalog.Season;
 import org.example.domaine.catalog.Serie;
-import org.example.domaine.userselection.UserEpisode;
 import org.example.domaine.userselection.UserRating;
-import org.example.domaine.userselection.UserSeason;
-import org.example.domaine.userselection.UserSerie;
 import org.example.infrastructure.repository.ISerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +34,6 @@ public class SerieServiceImpl implements ISerieService {
         if (!serieOptional.isPresent()){
             throw new EntityNotFoundException("La serie est instrouvable");
         }
-
         Serie serie = serieOptional.get();
         //trier la serie par numéro de saison et numéro d'épisode
         for (Season season : serie.getSeasons()) {
@@ -60,19 +55,9 @@ public class SerieServiceImpl implements ISerieService {
                 .sorted(Comparator.comparingInt( (episode) -> episode.getEpisodeNumber()))
                 .collect(Collectors.toList());
     }
-
     @Override
     public List<Serie> findAll() {
         return serieRepository.findAll();
-    }
-    @Override
-    public void deleteSerie(Long id) {
-        serieRepository.deleteById(id);
-    }
-
-    @Override
-    public void updateSerie(Serie updatedSerie) {
-        serieRepository.save(updatedSerie);
     }
     @Override
     public List<Serie> findFirst4ByOrderByTotalRatingDesc() {
@@ -82,7 +67,6 @@ public class SerieServiceImpl implements ISerieService {
     public List<Serie> findByTitleContains(String title){
         return serieRepository.findByTitleContainsIgnoreCase(title);
     }
-
     @Override
     public void updateSerieTotalRatingAndVoteCount(Serie serie, UserRating userRating) {
         serieRepository.updateSerieRating(serie.getId(), calculService.computeAverage(serie.getTotalRating(), serie.getVoteCount(), userRating.getNewRating(), userRating.getPreviousRating()));

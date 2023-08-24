@@ -28,7 +28,6 @@ public class JWTTokenFilter extends OncePerRequestFilter {
 
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken==null || !bearerToken.startsWith("Bearer ")){
-            System.out.println("JWTToken token null");
             filterChain.doFilter(request, response);
             return;
         }
@@ -37,17 +36,14 @@ public class JWTTokenFilter extends OncePerRequestFilter {
         String token = bearerToken.substring("Bearer ".length());
         DecodedJWT decodedJWT = verifier.verify(token);
         String username = decodedJWT.getSubject();
-
         //on récupère les rôles
         List<String> roles = decodedJWT.getClaims().get("roles").asList(String.class);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         for (String r : roles){
             authorities.add(new SimpleGrantedAuthority(r));
         }
-
         //authentifie l'utilisateur
         UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken(username, null, authorities);
-
         SecurityContextHolder.getContext().setAuthentication(user);
         filterChain.doFilter(request, response);
 

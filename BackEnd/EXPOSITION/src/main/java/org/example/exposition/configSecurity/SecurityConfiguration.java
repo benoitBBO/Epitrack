@@ -57,12 +57,9 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception{
-        // Enable CORS and disable CSRF
-        //TODO voir pour le CSRF disable
         http.cors(Customizer.withDefaults())
                 .csrf().disable()
                 .formLogin().disable();
-
         // set unauthorized requests exception handler
         http.exceptionHandling()
                         .authenticationEntryPoint(

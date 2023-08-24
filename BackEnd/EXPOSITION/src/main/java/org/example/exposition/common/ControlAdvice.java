@@ -12,18 +12,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ControlAdvice extends ResponseEntityExceptionHandler {
 
-    /* ne pas mettre ces exceptions ici car ce ne sont pas des exceptions métier, elles sont générées par Spring
-
-
     @ExceptionHandler
     @ResponseBody
     public ResponseEntity<ErrorModel> handleForbiddenAccessException (ForbiddenAccessException ex){
         ErrorModel error = new ErrorModel("403", ex.getLocalizedMessage(), "Accès refusé, utilisateur non autorisé");
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
-
-
-     */
     @ExceptionHandler
     @ResponseBody
     public ResponseEntity<ErrorModel> handleUnauthorizedException (UnauthorizedException ex){

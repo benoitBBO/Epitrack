@@ -1,6 +1,5 @@
 package org.example.application;
 
-import org.example.domaine.catalog.Serie;
 import org.example.domaine.userselection.UserEpisode;
 import org.example.domaine.userselection.UserRating;
 import org.example.domaine.userselection.UserSeason;
@@ -18,12 +17,8 @@ public interface IUserSerieService {
     void updateUserRating(UserRating userRating);
     List<UserSerie> findAllByUserIdOrderByUserRatingDesc(Long userId);
     UserSerie updateStatusUserSerieAndSeasonsAndEpisodes(Long userSerieId, String status);
-    //void verifyStatusAllSeasonsForUpdateSerie(Long userSerieId, String status);
-
     UserSerie updateStatusUserSeasonAndEpisodesAndVerifyStatusUserSerie(Long userSerieId, Long userSeasonId, String status);
-
     UserSerie updateStatusUserEpisodeAndVerifyStatusUserSeasonAndSerie(Long userSerieId, Long userSeasonId, Long userEpisodeId, String status);
-
     List<UserSeason> sortBySeasonNumber (List<UserSeason> userSeasonList);
     List<UserEpisode> sortByEpisodeNumber (List<UserEpisode> userEpisodeList);
 }

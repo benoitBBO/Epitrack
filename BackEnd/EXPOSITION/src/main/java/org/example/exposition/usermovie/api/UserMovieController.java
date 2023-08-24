@@ -3,17 +3,13 @@ package org.example.exposition.usermovie.api;
 import org.example.application.IUserMovieService;
 import org.example.domaine.userselection.UserMovie;
 import org.example.domaine.userselection.UserRating;
-import org.example.domaine.userselection.UserSerie;
 import org.example.exposition.usermovie.converter.UserMovieConverter;
 import org.example.exposition.usermovie.dto.UserMovieDetailDto;
-import org.example.exposition.usermovie.dto.UserMovieMinDto;
-import org.example.exposition.userserie.dto.UserSerieDetailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 

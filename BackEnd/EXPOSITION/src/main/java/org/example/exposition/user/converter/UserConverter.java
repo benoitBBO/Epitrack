@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class UserConverter {
 
     private BCryptPasswordEncoder passwordEncoder;
-
     @Autowired
     IRoleService roleService;
 

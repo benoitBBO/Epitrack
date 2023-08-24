@@ -30,7 +30,6 @@ public class UserProfileServiceImpl implements IUserProfileService {
 
     @Override
     public UserProfile findUserProfileByUsername(String username) {
-        System.out.println("UserProfileService rech par username: "+ username);
         if (username.isEmpty()){
             throw new InputMissingException();
         }
@@ -39,11 +38,6 @@ public class UserProfileServiceImpl implements IUserProfileService {
             throw new ResourceNotFoundException();
         }
         return optionalUserProfile.get();
-    }
-
-    @Override
-    public UserProfile findUserProfileById(Long id) {
-        return userProfileRepository.findById(id).get();
     }
 
     @Override
@@ -66,13 +60,7 @@ public class UserProfileServiceImpl implements IUserProfileService {
         if (oldUser.getLastName() != user.getLastName()){
             newUser.setLastName(user.getLastName());
         }
-        System.out.println("newUser= "+newUser);
         userProfileRepository.save(newUser);
-    }
-
-    @Override
-    public void deleteUserProfile(Long id) {
-        userProfileRepository.deleteById(id);
     }
 
 }

@@ -1,20 +1,15 @@
 package org.example.exposition.userseason.converter;
 
-import org.example.domaine.user.UserProfile;
 import org.example.domaine.userselection.UserEpisode;
 import org.example.domaine.userselection.UserSeason;
-import org.example.exposition.episode.converter.EpisodeConverter;
 import org.example.exposition.season.converter.SeasonConverter;
-import org.example.exposition.season.dto.SeasonDetailDto;
 import org.example.exposition.user.dto.UserDto;
 import org.example.exposition.userepisode.converter.UserEpisodeConverter;
 import org.example.exposition.userepisode.dto.UserEpisodeDto;
 import org.example.exposition.userseason.dto.UserSeasonDto;
-import org.example.exposition.userserie.dto.UserSerieDetailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

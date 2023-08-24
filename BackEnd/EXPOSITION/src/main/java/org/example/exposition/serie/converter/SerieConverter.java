@@ -1,6 +1,5 @@
 package org.example.exposition.serie.converter;
 
-import org.example.application.util.ICalculService;
 import org.example.domaine.catalog.*;
 import org.example.exposition.season.converter.SeasonConverter;
 import org.example.exposition.season.dto.SeasonDetailDto;
@@ -8,7 +7,6 @@ import org.example.exposition.serie.dto.SerieDetailDto;
 import org.example.exposition.serie.dto.SerieDetailWithoutSeasonDto;
 import org.example.exposition.serie.dto.SerieMinDto;
 import org.example.exposition.tmdb.dto.*;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,24 +18,6 @@ public class SerieConverter {
 
     @Autowired
     SeasonConverter seasonConverter;
-    @Autowired
-    ICalculService calculService;
-
-
-    public Serie convertDetailWithoutSeasonDtoToEntity(SerieDetailWithoutSeasonDto dto){
-        Serie entity = new Serie();
-        entity.setId(dto.getId());
-        entity.setTitle(dto.getTitle());
-        entity.setOverview(dto.getOverview());
-        entity.setReleaseDate(dto.getReleaseDate());
-        entity.setTotalRating(dto.getTotalRating());
-        entity.setImagePosterUrl(dto.getImagePosterUrl());
-        entity.setImageLandscapeUrl(dto.getImageLandscapeUrl());
-        entity.setImdbRef(dto.getImdbRef());
-        entity.setGenres(dto.getGenres());
-        entity.setActors(dto.getActors());
-        return entity;
-    }
 
     public SerieDetailWithoutSeasonDto convertEntityToDetailWithoutSeasonDto(Serie entity){
         SerieDetailWithoutSeasonDto dto = new SerieDetailWithoutSeasonDto();
@@ -75,10 +55,6 @@ public class SerieConverter {
         }
         dto.setSeasons(seasonDetailDtoList);
         return dto;
-    }
-    public Serie convertMinDtoToEntity(SerieMinDto dto){
-        ModelMapper mapper=new ModelMapper();
-        return mapper.map(dto,Serie.class);
     }
     public SerieMinDto convertEntityToMinDto(Serie entity){
         SerieMinDto dto = new SerieMinDto();
@@ -118,7 +94,6 @@ public class SerieConverter {
         List<Actor> actorList = new ArrayList<>();
         for (CastDto castDto : json.getCredits().getCast()){
             Actor actor = new Actor();
-//            actor.setId(castDto.getId());
             actor.setName(castDto.getName());
             actor.setTmdbRef((castDto.getId().toString()));
             actor.setPhotoUrl(castDto.getProfile_path());

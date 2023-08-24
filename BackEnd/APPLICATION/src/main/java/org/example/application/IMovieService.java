@@ -9,10 +9,8 @@ public interface IMovieService {
     Long create(Movie movie);
     Movie findById(Long id);
     List<Movie> findAll();
-    Movie update(Movie movie);
     void delete(Long id);
     List<Movie> findFirst4ByOrderByTotalRatingDesc();
     List<Movie> findByTitleContains(String title);
-
     void updateMovieTotalRatingAndVoteCount(Movie movie, UserRating userRating);
 }

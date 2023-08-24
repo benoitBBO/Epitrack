@@ -22,9 +22,6 @@ public class UserLoginService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //appel service user, find by email
         UserProfile userProfile = userProfileService.findUserProfileByUsername(username);
-        System.out.println("retour requête by username: " + userProfile.getUserName()
-                           + " " + userProfile.getPassword()
-                            + " " + userProfile.getRole());
         if(userProfile!=null){
             //on alimente la liste des rôles (1 seul rôle) dans authorities
             List<GrantedAuthority> authorities = new ArrayList<>();
@@ -33,7 +30,7 @@ public class UserLoginService implements UserDetailsService {
             return new User(userProfile.getUserName(), userProfile.getPassword(), authorities);
         }
         else {
-            throw new UsernameNotFoundException("profil utilisateur non trouvé");
+            throw new UsernameNotFoundException("Profil utilisateur non trouvé");
         }
 
 

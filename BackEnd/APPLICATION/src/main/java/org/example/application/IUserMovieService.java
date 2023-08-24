@@ -8,8 +8,6 @@ import java.util.List;
 public interface IUserMovieService {
     List<UserMovie> create(UserMovie userMovie);
     UserMovie findById(Long id);
-    List<UserMovie> findAll();
-    UserMovie update(UserMovie userMovie);
     List<UserMovie> delete(Long movieId, Long userId);
     List<UserMovie> findFirst4ByUserIdOrderByUserRatingDesc(Long userId);
     List<UserMovie> findAllByUserIdOrderByUserRatingDesc(Long userId);

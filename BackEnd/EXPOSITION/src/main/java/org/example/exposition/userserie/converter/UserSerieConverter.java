@@ -1,11 +1,8 @@
 package org.example.exposition.userserie.converter;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.example.domaine.user.UserProfile;
 import org.example.domaine.userselection.UserSeason;
 import org.example.domaine.userselection.UserSerie;
 import org.example.exposition.serie.converter.SerieConverter;
-import org.example.exposition.serie.dto.SerieDetailWithoutSeasonDto;
 import org.example.exposition.user.dto.UserDto;
 import org.example.exposition.userseason.converter.UserSeasonConverter;
 import org.example.exposition.userseason.dto.UserSeasonDto;
@@ -13,7 +10,6 @@ import org.example.exposition.userserie.dto.UserSerieDetailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

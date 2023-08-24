@@ -1,15 +1,12 @@
 package org.example.application;
 
-import org.example.application.util.ICalculService;
 import org.example.domaine.catalog.Episode;
-import org.example.domaine.catalog.Movie;
 import org.example.domaine.catalog.Season;
 import org.example.domaine.catalog.Serie;
 import org.example.domaine.exceptions.ResourceAlreadyExistsException;
 import org.example.domaine.exceptions.ResourceNotFoundException;
 import org.example.domaine.user.UserProfile;
 import org.example.domaine.userselection.UserEpisode;
-import org.example.domaine.userselection.UserMovie;
 import org.example.domaine.userselection.UserRating;
 import org.example.domaine.userselection.UserSeason;
 import org.example.domaine.userselection.UserSerie;
@@ -31,7 +28,6 @@ import java.util.stream.Collectors;
 public class UserSerieServiceImpl implements IUserSerieService {
     @Autowired
     IUserSerieRepository userSerieRepository;
-
     @Autowired
     ISerieRepository serieRepository;
     @Autowired
@@ -42,6 +38,7 @@ public class UserSerieServiceImpl implements IUserSerieService {
     IUserEpisodeService userEpisodeService;
 
     @Override
+    @Transactional
     public List<UserSerie> create(Long serieId, Long userId) {
         Optional<UserSerie> optionalUserSerie = userSerieRepository.findByUserIdAndSerieId(userId, serieId);
         if (optionalUserSerie.isPresent()){
@@ -93,7 +90,6 @@ public class UserSerieServiceImpl implements IUserSerieService {
             //Creation de l'objet Episode à passer en table
             Episode episode = new Episode();
 
-
             userSeason.setStatus("UNWATCHED");
             userSeason.setStatusDate(LocalDate.now());
             userSeason.setUser(user);
@@ -114,7 +110,6 @@ public class UserSerieServiceImpl implements IUserSerieService {
         userSerie.setStatusDate(LocalDate.now());
         userSerie.setUserRating(0);
         userSerie.setUser(user);
-
 
         userSerieRepository.save(userSerie);
 

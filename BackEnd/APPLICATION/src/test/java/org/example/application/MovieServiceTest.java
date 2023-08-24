@@ -61,7 +61,7 @@ public class MovieServiceTest {
     public void test_should_return_newId_when_create_newMovie(){
         assertThat(movieService.create(mockedMovie)).isEqualTo(65L);
     }
-    /*
+    /* TODO lié au service Movie
     @Test
     public void test_should_resourceAlreadyExistsException_when_create_existingMovie(){
         assertThrows(ResourceAlreadyExistsException.class,
@@ -77,9 +77,5 @@ public class MovieServiceTest {
     public void test_should_return_NotFoundException_when_findById_KO(){
         assertThrows(EntityNotFoundException.class,
                 () -> movieService.findById(153L));
-    }
-    @Test
-    public void test_should_return_movie_when_update_movie(){
-        assertThat(movieService.update(mockedMovie)).isEqualTo(mockedMovie);
     }
 }

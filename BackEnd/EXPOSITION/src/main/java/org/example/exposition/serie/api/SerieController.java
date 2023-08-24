@@ -29,7 +29,7 @@ public class SerieController {
     }
 
     @PostMapping("/mass")
-    public void createMovies(@RequestBody List<TmdbDto> dtoList) {
+    public void createSeries(@RequestBody List<TmdbDto> dtoList) {
         dtoList.forEach(dto -> {
             service.create(serieConverter.convertTmdbDtoToEntity(dto));
         });

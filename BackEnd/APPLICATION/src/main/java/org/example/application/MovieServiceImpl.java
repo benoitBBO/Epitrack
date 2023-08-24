@@ -21,7 +21,7 @@ public class MovieServiceImpl implements IMovieService {
     ICalculService calculService;
     @Override
     @Transactional
-    public Long create(Movie movie) {
+    public Long create(Movie movie) { //TODO faire un response entity et gestion de l'exception
         return movieRepository.save(movie).getId();
     }
     @Override
@@ -35,10 +35,6 @@ public class MovieServiceImpl implements IMovieService {
     @Override
     public List<Movie> findAll() {
         return movieRepository.findAll();
-    }
-    @Override
-    public Movie update(Movie movie) {
-        return movieRepository.save(movie);
     }
     @Override
     public void delete(Long id) {
