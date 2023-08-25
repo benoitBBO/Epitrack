@@ -13,9 +13,9 @@
 <div id="divBtnsFiltersUser" *ngIf="currentUrl !== '/user'" class="mb-3">
     <mat-button-toggle-group appearance="legacy" name="statusUserMovies" aria-label="Status">
         <mat-button-toggle (click)="onClickStatusBtn('All')" value="All" checked>Tous</mat-button-toggle>
-        <mat-button-toggle (click)="onClickStatusBtn('UNWATCHED')" value="UNWATCHED">A voir</mat-button-toggle>
-        <mat-button-toggle (click)="onClickStatusBtn('ONGOING')" value="ONGOING">En cours</mat-button-toggle>
-        <mat-button-toggle (click)="onClickStatusBtn('WATCHED')" value="WATCHED">Déjà vu</mat-button-toggle>
+        <mat-button-toggle (click)="onClickStatusBtn(statusUnwatched)" [value]="statusUnwatched">A voir</mat-button-toggle>
+        <mat-button-toggle (click)="onClickStatusBtn(statusOngoing)" [value]="statusOngoing">En cours</mat-button-toggle>
+        <mat-button-toggle (click)="onClickStatusBtn(statusWatched)" [value]="statusWatched">Déjà vu</mat-button-toggle>
     </mat-button-toggle-group>
 </div>
 <!--Filters UserSeries-->

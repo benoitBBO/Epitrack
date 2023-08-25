@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UsermovieModel } from '../shared/models/usermovie.model';
 import { UserModel } from '../shared/models/user.model';
 import { UserService } from '../shared/services/user.service';
+import { ConstantsService } from '../shared/services/constants.service';
 
 @Component({
   selector: 'app-user-movie-list',
@@ -19,8 +20,12 @@ export class UserMovieListComponent {
   
   constructor(private router:Router,
               private userMovie:UserMovieService,
-              private userService:UserService) {
+              private userService:UserService,
+              private constants: ConstantsService) {
   }
+
+  statusUnwatched = this.constants.STATUS_UNWATCHED;
+  statusWatched = this.constants.STATUS_WATCHED;
 
   ngOnInit() {
     //RG pour css Films/Series
@@ -49,13 +54,13 @@ export class UserMovieListComponent {
       case "All":
         this.movies = this.originalUserMovies;
         break;
-      case "UNWATCHED":
+      case this.constants.STATUS_UNWATCHED:
         this.movies = this.originalUserMovies.filter(userMovie => userMovie.status === value);
         break;
-      case "ONGOING":
+      case this.constants.STATUS_ONGOING:
         this.movies = this.originalUserMovies.filter(userMovie => userMovie.status === value);
         break;
-      case "WATCHED":
+      case this.constants.STATUS_WATCHED:
         this.movies = this.originalUserMovies.filter(userMovie => userMovie.status === value);
         break;
             

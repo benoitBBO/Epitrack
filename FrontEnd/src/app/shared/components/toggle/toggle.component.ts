@@ -9,6 +9,7 @@ import { UserserieModel } from '../../models/userserie.model';
 import { UsermovieModel } from '../../models/usermovie.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { ConstantsService } from '../../services/constants.service';
 
 @Component({
   selector: 'app-toggle',
@@ -30,20 +31,21 @@ export class ToggleComponent {
   constructor(private userMovieService: UserMovieService,
               private userSerieService: UserSerieService,
               private messageService: MessageService,
-              private dialog: MatDialog   
+              private dialog: MatDialog,
+              private constants: ConstantsService   
             ){}
 
   ngOnInit(){
-    if (this.status == "WATCHED") {
+    if (this.status == this.constants.STATUS_WATCHED) {
       this.checked = true;
     }
   }
   
   changed(event: any){
     if (this.checked) {
-      this.status = "WATCHED";
+      this.status = this.constants.STATUS_WATCHED;
     } else {
-      this.status = "UNWATCHED";
+      this.status = this.constants.STATUS_UNWATCHED;
     }
 
     switch (this.videoType) {
