@@ -30,7 +30,7 @@ public class TmdbDto {
     public String title; //Movie Specific
     public String name; //Series Specific
 //    public boolean video;
-    public int vote_average;
+    public double vote_average;
     public int vote_count;
     public CreditsDto credits;
 
@@ -145,11 +145,11 @@ public class TmdbDto {
         this.name = name;
     }
 
-    public int getVote_average() {
+    public double getVote_average() {
         return vote_average;
     }
 
-    public void setVote_average(int vote_average) {
+    public void setVote_average(double vote_average) {
         this.vote_average = vote_average;
     }
 

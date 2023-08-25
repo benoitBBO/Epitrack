@@ -74,7 +74,6 @@ export class MovieService {
   }
 
   postNewMovie(movie:TmdbmovieDetailDtoModel) {
-    movie.vote_average = movie.vote_average*1000;
     return this.http.post(this.EPITRACK_API + '/movies', movie)
       .pipe(map((response) => new Number(response)));
   }

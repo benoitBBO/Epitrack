@@ -75,7 +75,6 @@ export class SerieService {
   }
 
   postNewSerie(serie:TmdbserieDetailDtoModel): Observable<number> {
-    serie.vote_average = serie.vote_average*1000;
     return this.http.post<number>(this.EPITRACK_API + '/series', serie)
       .pipe((response) => { return response })
   }
