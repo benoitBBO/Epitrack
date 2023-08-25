@@ -7,12 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ISerieRepository extends JpaRepository <Serie, Long> {
     List<Serie> findFirst4ByOrderByTotalRatingDesc();
     List<Serie> findByTitleContainsIgnoreCase(String title);
+    Optional<Serie> findByTitleAndReleaseDate (String title, LocalDate releaseDate);
 
     @Modifying
     @Query("update Serie serie set serie.totalRating = :newrating where serie.id = :serieId")

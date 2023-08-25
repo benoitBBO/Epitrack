@@ -2,6 +2,7 @@ package org.example.application;
 
 import org.example.application.util.ICalculService;
 import org.example.domaine.catalog.Movie;
+import org.example.domaine.exceptions.ResourceAlreadyExistsException;
 import org.example.domaine.userselection.UserRating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,14 @@ public class MovieServiceImpl implements IMovieService {
     ICalculService calculService;
     @Override
     @Transactional
-    public Long create(Movie movie) { //TODO faire un response entity et gestion de l'exception et controle du doublon
-        return movieRepository.save(movie).getId();
+    public Long create(Movie movie) {
+        System.out.println("CREATE MOVIE Service "+ movie.getTitle());
+        Optional<Movie> optionalMovie = movieRepository.findByImdbRef(movie.getImdbRef());
+        if (optionalMovie.isPresent()){
+            throw new ResourceAlreadyExistsException("Le film avec imdbRef "+movie.getImdbRef()+" existe déjà");
+        } else {
+            return movieRepository.save(movie).getId();
+        }
     }
     @Override
     public Movie findById(Long id) {

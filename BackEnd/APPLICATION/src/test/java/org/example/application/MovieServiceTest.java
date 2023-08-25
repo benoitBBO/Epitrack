@@ -3,6 +3,7 @@ package org.example.application;
 import org.example.application.util.CalculServiceImpl;
 import org.example.application.util.ICalculService;
 import org.example.domaine.catalog.Movie;
+import org.example.domaine.exceptions.ResourceAlreadyExistsException;
 import org.example.infrastructure.repository.IMovieRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ public class MovieServiceTest {
         mockedMovie.setTitle("Titre film");
         mockedMovie.setOverview("résumé du film");
         mockedMovie.setReleaseDate(LocalDate.of(2018, 7, 23));
-        mockedMovie.setTotalRating(3);
+        mockedMovie.setTotalRating(3000);
         mockedMovie.setVoteCount(126);
         mockedMovie.setImageLandscapeUrl("url");
         mockedMovie.setGenres(new ArrayList<>());
@@ -49,25 +50,35 @@ public class MovieServiceTest {
         //...
         when(movieRepository.save(mockedMovie)).thenReturn(mockedMovie);
         when(movieRepository.findById(65L)).thenReturn(Optional.of(mockedMovie));
+        when(movieRepository.findByImdbRef("a125874")).thenReturn(Optional.empty());
 
         mockedExistingMovie = new Movie();
         mockedExistingMovie.setId(48L);
         mockedExistingMovie.setTitle("Titre film pour test create d'un movie déjà existant en base");
+        mockedExistingMovie.setReleaseDate(LocalDate.of(2018, 7, 23));
+        mockedExistingMovie.setTotalRating(3000);
+        mockedExistingMovie.setVoteCount(126);
+        mockedExistingMovie.setImageLandscapeUrl("url");
+        mockedExistingMovie.setGenres(new ArrayList<>());
+        mockedExistingMovie.setActors(new ArrayList<>());
+        mockedExistingMovie.setImdbRef("a111");
         //...
-        when(movieRepository.save(mockedExistingMovie)).thenReturn(new Movie());
+        when(movieRepository.findByImdbRef("a111")).thenReturn(Optional.of(mockedExistingMovie));
+
         when(movieRepository.findById(153L)).thenReturn(Optional.empty());
+
     }
     @Test
     public void test_should_return_newId_when_create_newMovie(){
         assertThat(movieService.create(mockedMovie)).isEqualTo(65L);
     }
-    /* TODO lié au service Movie
+
     @Test
     public void test_should_resourceAlreadyExistsException_when_create_existingMovie(){
         assertThrows(ResourceAlreadyExistsException.class,
                 () -> movieService.create(mockedExistingMovie));
     }
-     */
+
 
     @Test
     public void test_should_return_mockedMovie_when_findById_OK(){
