@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class SerieServiceImpl implements ISerieService {
     @Autowired
     ISerieRepository serieRepository;
-
     @Autowired
     ICalculService calculService;
 

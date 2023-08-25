@@ -6,6 +6,7 @@ import { MessageService } from '../shared/services/message.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserModel } from '../shared/models/user.model';
 import { UserService } from '../shared/services/user.service';
+import { ConstantsService } from '../shared/services/constants.service';
 
 @Component({
   selector: 'app-user-serie-list',
@@ -22,8 +23,13 @@ export class UserSerieListComponent {
   constructor(private router:Router,
               private userSerieService:UserSerieService,
               private userService:UserService,
-              private messageService:MessageService) {
+              private messageService:MessageService,
+              private constants: ConstantsService) {
   }
+
+  statusUnwatched = this.constants.STATUS_UNWATCHED;
+  statusWatched = this.constants.STATUS_WATCHED;
+  statusOngoing = this.constants.STATUS_ONGOING;
 
   ngOnInit() {
     //RG pour css Films/Series
@@ -78,13 +84,13 @@ export class UserSerieListComponent {
       case "All":
         this.series = this.originalUserSeries;
         break;
-      case "UNWATCHED":
+      case this.constants.STATUS_UNWATCHED:
         this.series = this.originalUserSeries.filter(userSerie => userSerie.status === value);
         break;
-      case "ONGOING":
+      case this.constants.STATUS_ONGOING:
         this.series = this.originalUserSeries.filter(userSerie => userSerie.status === value);
         break;
-      case "WATCHED":
+      case this.constants.STATUS_WATCHED:
         this.series = this.originalUserSeries.filter(userSerie => userSerie.status === value);
         break;
             

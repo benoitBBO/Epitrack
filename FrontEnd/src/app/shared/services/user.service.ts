@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { MessageService } from './message.service';
 import { UserModel } from '../models/user.model';
+import { ConstantsService } from './constants.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  EPITRACK_API = 'http://localhost:8080/api/v1';
-
   public _loggedUser$ = new BehaviorSubject<any>(UserModel);
 
   constructor(private http:HttpClient,
-              private msgService:MessageService) { }
+              private msgService:MessageService,
+              private constants: ConstantsService) { }
 
   
   get loggedUser$():Observable<UserModel> {
@@ -23,13 +23,12 @@ export class UserService {
   get loggedUser():UserModel {
       return this._loggedUser$.getValue();
   }
-
   
   login(data:{username:String, password:String}){
     //appel serveur (seveur vérifie les données de login et renvoie
     //               un token de connexion si ok)
     let endpoint = '/login';
-    return this.http.post(this.EPITRACK_API+endpoint, data)
+    return this.http.post(this.constants.EPITRACK_API+endpoint, data)
       .pipe(
         tap( {
           error: (err:unknown) => {
@@ -49,12 +48,12 @@ export class UserService {
 
   register(user:UserModel){
     let endpoint = '/users/register';
-    return this.http.post(this.EPITRACK_API+endpoint, user, {responseType:'text'});
+    return this.http.post(this.constants.EPITRACK_API+endpoint, user, {responseType:'text'});
   }
 
   findUser(username:String){
     let endpoint = '/users/username/';
-    return this.http.get(this.EPITRACK_API+endpoint + username)
+    return this.http.get(this.constants.EPITRACK_API+endpoint + username)
       .pipe(
         tap( {
           error: (err:unknown) => {
@@ -75,7 +74,7 @@ export class UserService {
   updateUser(user:UserModel){
     
     let endpoint = '/users';
-    return this.http.put(this.EPITRACK_API+endpoint, user, {responseType:'text'})
+    return this.http.put(this.constants.EPITRACK_API+endpoint, user, {responseType:'text'})
       .pipe(
         tap( {
           error: (err:unknown) => {

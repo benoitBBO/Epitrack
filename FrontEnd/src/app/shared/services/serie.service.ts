@@ -5,33 +5,29 @@ import { SerieModel } from '../models/serie.model';
 import { TmdbserieModel } from '../models/tmdbserie.model';
 import { TmdbserieDetailDtoModel } from '../models/tmdbserie-detail-dto.model';
 import { TmdbepisodeDetailDtoModel } from '../models/tmdbepisode-detail-dto.model';
+import { ConstantsService } from './constants.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SerieService {
 
-  EPITRACK_API = 'http://localhost:8080/api/v1';
-  TMDB_API = 'https://api.themoviedb.org/3';
-  APIKEY_TMDB = '503f9b6e89ed3a77b5a426dbc8e1094f';
-
   private _series$ = new BehaviorSubject<SerieModel[]>([]);
   private _serie$ = new BehaviorSubject<any>(SerieModel);
 
-  constructor(private http: HttpClient) {
-    console.log("construteur Serie => ", this)
-  }
-
+  constructor(private http: HttpClient,
+              private constants: ConstantsService) {}
+            
   getSeriesFromApi():Observable<SerieModel[]> {
     let endpoint = '/series';
-    return this.http.get( this.EPITRACK_API + endpoint)
+    return this.http.get( this.constants.EPITRACK_API + endpoint)
       .pipe( map( (response:any) => 
             response.map((serie:any) => new SerieModel(serie)) ) );
   }
 
   getBest4SeriesFromApi():Observable<SerieModel[]> {
     let endpoint = '/series/best4';
-    return this.http.get( this.EPITRACK_API + endpoint)
+    return this.http.get( this.constants.EPITRACK_API + endpoint)
       .pipe( map( (response:any) => 
             response.map((serie:any) => new SerieModel(serie)) ) );
   }
@@ -40,7 +36,7 @@ export class SerieService {
     let endpoint = '/series/search';
     let options = new HttpParams()
       .set('query', saisieRch)
-    return this.http.get( this.EPITRACK_API + endpoint, {params:options})
+    return this.http.get( this.constants.EPITRACK_API + endpoint, {params:options})
     // on map la reponse pour que le compoment ait un SerieModel[]
       .pipe( map( (response:any) => 
             response.map((serie:any) => new SerieModel(serie)) ) )
@@ -48,7 +44,7 @@ export class SerieService {
 
   getSerieById(id: number):Observable<SerieModel> {
     let endpoint = '/series/' + id;
-    return this.http.get(this.EPITRACK_API + endpoint)
+    return this.http.get(this.constants.EPITRACK_API + endpoint)
           .pipe( map( (response:any) => 
             new SerieModel(response)) );
   }
@@ -56,10 +52,10 @@ export class SerieService {
   searchSeriesFromTMDBApi(saisieRch:string):Observable<TmdbserieModel[]> {
     let endpoint = '/search/tv';
     let options = new HttpParams()
-      .set('api_key', this.APIKEY_TMDB)
+      .set('api_key', this.constants.APIKEY_TMDB)
       .set('query', saisieRch)
       .set('language', 'fr')
-    return this.http.get( this.TMDB_API + endpoint, {params:options})
+    return this.http.get( this.constants.TMDB_API + endpoint, {params:options})
       .pipe( map( (response:any) => 
             response.results.map((serie:any) => new TmdbserieModel(serie)) ) )
   }
@@ -67,25 +63,24 @@ export class SerieService {
   getSerieTmdbById(serieId:number) {
     let endpoint = '/tv/';
     let options = new HttpParams()
-      .set('api_key', this.APIKEY_TMDB)
+      .set('api_key', this.constants.APIKEY_TMDB)
       .set('append_to_response','credits')
       .set('language', 'fr')
-    return this.http.get( this.TMDB_API + endpoint + serieId, {params:options})
+    return this.http.get( this.constants.TMDB_API + endpoint + serieId, {params:options})
       .pipe( map( (response:any) => new TmdbserieDetailDtoModel(response) ) )
   }
 
   postNewSerie(serie:TmdbserieDetailDtoModel): Observable<number> {
-    serie.vote_average = serie.vote_average*1000;
-    return this.http.post<number>(this.EPITRACK_API + '/series', serie)
+    return this.http.post<number>(this.constants.EPITRACK_API + '/series', serie)
       .pipe((response) => { return response })
   }
   
   getSeasonTmdbById(serieId:number, seasonNumber:number) {
     let endpoint = '/tv/';
     let options = new HttpParams()
-      .set('api_key', this.APIKEY_TMDB)
+      .set('api_key', this.constants.APIKEY_TMDB)
       .set('language', 'fr')
-    return this.http.get( this.TMDB_API + endpoint + serieId + '/season/' +  seasonNumber, {params:options})
+    return this.http.get( this.constants.TMDB_API + endpoint + serieId + '/season/' +  seasonNumber, {params:options})
       .pipe( map( (response:any) => 
             response.episodes.map((episode:any) => new TmdbepisodeDetailDtoModel(episode)) ) )
   }
