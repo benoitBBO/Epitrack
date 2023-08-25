@@ -21,7 +21,7 @@ public class MovieServiceImpl implements IMovieService {
     ICalculService calculService;
     @Override
     @Transactional
-    public Long create(Movie movie) { //TODO faire un response entity et gestion de l'exception
+    public Long create(Movie movie) { //TODO faire un response entity et gestion de l'exception et controle du doublon
         return movieRepository.save(movie).getId();
     }
     @Override

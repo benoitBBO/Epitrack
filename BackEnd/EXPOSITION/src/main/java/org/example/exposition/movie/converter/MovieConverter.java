@@ -52,7 +52,7 @@ public class MovieConverter {
         movie.setTitle(json.getTitle());
         movie.setOverview(json.getOverview());
         movie.setReleaseDate(json.getRelease_date());
-        movie.setTotalRating(json.getVote_average()/2);
+        movie.setTotalRating(json.getVote_average()/2);//TODO a multiplier par 1000 et enlever côté front
         movie.setVoteCount(json.getVote_count());
         movie.setImagePosterUrl(json.getPoster_path());
         movie.setImageLandscapeUrl(json.getBackdrop_path());
