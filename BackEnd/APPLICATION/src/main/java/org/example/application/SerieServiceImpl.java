@@ -4,6 +4,7 @@ import org.example.application.util.ICalculService;
 import org.example.domaine.catalog.Episode;
 import org.example.domaine.catalog.Season;
 import org.example.domaine.catalog.Serie;
+import org.example.domaine.exceptions.ResourceAlreadyExistsException;
 import org.example.domaine.userselection.UserRating;
 import org.example.infrastructure.repository.ISerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,13 @@ public class SerieServiceImpl implements ISerieService {
 
     @Override
     public Long create(Serie newSerie) {
-        return serieRepository.save(newSerie).getId();
+        System.out.println("CREATE SERIE "+ newSerie.getTitle());
+        Optional<Serie> optionalSerie = serieRepository.findByTitleAndReleaseDate(newSerie.getTitle(), newSerie.getReleaseDate());
+        if (optionalSerie.isPresent()){
+            throw new ResourceAlreadyExistsException("La série avec title "+newSerie.getTitle()+" et releaseDate "+newSerie.getReleaseDate()+" existe déjà");
+        } else {
+            return serieRepository.save(newSerie).getId();
+        }
     }
 
     @Override
