@@ -75,35 +75,49 @@ export class SearchTMDBComponent {
       this.spinner.show();
       this.movieService.getMovieTmdbById(movieId)
       .subscribe( (movie:any) => {
-        this.movieService.postNewMovie(movie).subscribe((newMovieId) => {
-          this.userMovie.postUserMovie(newMovieId, this.loggedUser.id) //Ajout du nouveau film dans le catalogue du user
-          .subscribe( {
-            next: (response:any) => {
-              //Mise à jour de la selection User
-              this.userMovie._usermovies$ = new BehaviorSubject<any>(response);
-              this.msgService.show("Film ajouté avec succès", "success");
-              this.router.navigateByUrl("/details/"+ newMovieId + "/Movie/in/catalog");
-              this.spinner.hide();
-            },
-            error: (err:unknown) => {
-              if (err instanceof HttpErrorResponse){
-                let errorObj = JSON.parse(err.error);
-                switch(err.status) {
-                  case 404:
-                    this.msgService.show(errorObj.description, "error");
-                    break;
-                  case 409:
-                    this.msgService.show("Ce film est déjà suivi", "error");
-                    break;
-                  default:
-                    this.msgService.show("code Http: "+errorObj.description+ "description: "+errorObj.description, "error");
-                }          
+        this.movieService.postNewMovie(movie).subscribe( {
+          next: (newMovieId) => {
+            this.userMovie.postUserMovie(newMovieId, this.loggedUser.id) //Ajout du nouveau film dans le catalogue du user
+            .subscribe( {
+              next: (response:any) => {
+                //Mise à jour de la selection User
+                this.userMovie._usermovies$ = new BehaviorSubject<any>(response);
+                this.msgService.show("Film ajouté avec succès", "success");
+                this.router.navigateByUrl("/details/"+ newMovieId + "/Movie/in/catalog");
+                this.spinner.hide();
+              },
+              error: (err:unknown) => {
+                if (err instanceof HttpErrorResponse){
+                  let errorObj = JSON.parse(err.error);
+                  switch(err.status) {
+                    case 404:
+                      this.msgService.show(errorObj.description, "error");
+                      break;
+                    case 409:
+                      this.msgService.show("Ce film est déjà suivi", "error");
+                      break;
+                    default:
+                      this.msgService.show("code Http: "+errorObj.description+ "description: "+errorObj.description, "error");
+                  }          
+                }
+                this.spinner.hide();
               }
-              this.spinner.hide();
+            });
+          },
+          error: (err:unknown) => {
+            if (err instanceof HttpErrorResponse){
+              switch(err.status) {
+                case 409:
+                  this.msgService.show("Ce film est déjà présent dans le catalogue", "error");
+                  break;
+                default:
+                  this.msgService.show("erreur Http: "+err.message);
+              }          
             }
-          });
+            this.spinner.hide();
+          }
         });
-      } )
+      })
     } else {
         this.msgService.show("Vous devez être connecté pour accéder à cette fonctionnalité", "error");
         this.router.navigate(['/login']);
@@ -127,33 +141,47 @@ export class SearchTMDBComponent {
               newSerie.seasons[i].episodes = responses[i];
             }
             this.serieService.postNewSerie(newSerie)
-              .subscribe((newSerieId:number) => {
-                this.userSerie.postUserSerie(newSerieId, this.loggedUser.id) //Ajout de la nouvelle série dans le catalogue du user
-                .subscribe( {
-                  next: (response:any) => {
-                    //Mise à jour de la selection User
-                    this.userSerie._userseries$ = new BehaviorSubject<any>(response);
-                    this.msgService.show("Série ajoutée avec succès", "success");
-                    this.router.navigateByUrl("/details/"+ newSerieId + "/Serie/in/catalog");
-                    this.spinner.hide();
-                  },
-                  error: (err:unknown) => {
-                    if (err instanceof HttpErrorResponse){
-                      let errorObj = JSON.parse(err.error);
-                      switch(err.status) {
-                        case 404:
-                          this.msgService.show(errorObj.description, "error");
-                          break;
-                        case 409:
-                          this.msgService.show("Ce film est déjà suivi", "error");
-                          break;
-                        default:
-                          this.msgService.show("code Http: "+errorObj.description+ "description: "+errorObj.description, "error");
-                      }          
+              .subscribe( {
+                next: (newSerieId:number) => {
+                  this.userSerie.postUserSerie(newSerieId, this.loggedUser.id) //Ajout de la nouvelle série dans le catalogue du user
+                  .subscribe( {
+                    next: (response:any) => {
+                      //Mise à jour de la selection User
+                      this.userSerie._userseries$ = new BehaviorSubject<any>(response);
+                      this.msgService.show("Série ajoutée avec succès", "success");
+                      this.router.navigateByUrl("/details/"+ newSerieId + "/Serie/in/catalog");
+                      this.spinner.hide();
+                    },
+                    error: (err:unknown) => {
+                      if (err instanceof HttpErrorResponse){
+                        let errorObj = JSON.parse(err.error);
+                        switch(err.status) {
+                          case 404:
+                            this.msgService.show(errorObj.description, "error");
+                            break;
+                          case 409:
+                            this.msgService.show("Ce film est déjà suivi", "error");
+                            break;
+                          default:
+                            this.msgService.show("code Http: "+errorObj.description+ "description: "+errorObj.description, "error");
+                        }          
+                      }
+                      this.spinner.hide();
                     }
-                    this.spinner.hide();
+                  });
+                },
+                error: (err:unknown) => {
+                  if (err instanceof HttpErrorResponse){
+                    switch(err.status) {
+                      case 409:
+                        this.msgService.show("Cette série est déjà présente dans le catalogue", "error");
+                        break;
+                      default:
+                        this.msgService.show("erreur Http: "+err.message);
+                    }          
                   }
-                });
+                  this.spinner.hide();
+                }
               });
           });
         } )

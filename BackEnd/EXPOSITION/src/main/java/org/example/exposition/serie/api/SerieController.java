@@ -2,11 +2,13 @@ package org.example.exposition.serie.api;
 
 import org.example.application.ISerieService;
 import org.example.domaine.catalog.Serie;
+import org.example.domaine.exceptions.ResourceAlreadyExistsException;
 import org.example.exposition.serie.converter.SerieConverter;
 import org.example.exposition.serie.dto.SerieDetailDto;
 import org.example.exposition.serie.dto.SerieMinDto;
 import org.example.exposition.tmdb.dto.TmdbDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +26,23 @@ public class SerieController {
     @PostMapping
     public ResponseEntity<Long> createSerie(@RequestBody TmdbDto json){
        Long newSerieId = service.create(serieConverter.convertTmdbDtoToEntity(json));
-
-        return ResponseEntity.ok().body(newSerieId);
+       return ResponseEntity.ok().body(newSerieId);
     }
 
     @PostMapping("/mass")
-    public void createSeries(@RequestBody List<TmdbDto> dtoList) {
-        dtoList.forEach(dto -> {
-            service.create(serieConverter.convertTmdbDtoToEntity(dto));
-        });
+    public ResponseEntity<String> createSeries(@RequestBody List<TmdbDto> dtoList) {
+        int createdSerieCount = 0;
+        int existingSerieCount = 0;
+        for (TmdbDto dto : dtoList){
+            try {
+                service.create(serieConverter.convertTmdbDtoToEntity(dto));
+                createdSerieCount +=1;
+            }
+            catch (ResourceAlreadyExistsException e){
+                existingSerieCount +=1;
+            }
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSerieCount+" séries créées / "+existingSerieCount+" séries non créées car déjà existantes");
     }
 
     @GetMapping("/{id}")

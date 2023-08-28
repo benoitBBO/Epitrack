@@ -56,14 +56,14 @@ export class VideoDetailsComponent {
     private spinner: NgxSpinnerService
     ){}
 
-    
+
 
   ngOnInit() {
     //Recupération du catalogue userMovies et userSeries
     this.userMovieService._usermovies$.subscribe(data => this.userMovies = data);
     this.userMovieService._usermovie$.subscribe(data => this.userMovie = data);
-    this.userSerieService._userseries$.subscribe(data => this.userSeries = data); 
-    
+    this.userSerieService._userseries$.subscribe(data => this.userSeries = data);
+
     this.userService._loggedUser$.subscribe((user:any) => {
       this.loggedUser=user;
     });
@@ -80,7 +80,7 @@ export class VideoDetailsComponent {
     } else {
       this.id = this.route.snapshot.params['id'];
     }
-    
+
     this.spinner.show();
     if(this.type === "Movie"){
       if(sessionStorage.length === 0 || this.userOwned === "out"){ //Si Utilisateur non connecté ou connecté mais film non suivi
@@ -93,7 +93,7 @@ export class VideoDetailsComponent {
         });
 
       }
-      
+
     } else {
       if(sessionStorage.length === 0 || this.userOwned === "out"){ //Si Utilisateur non connecté
         this.serieService.getSerieById(this.id).subscribe( {
@@ -128,10 +128,10 @@ export class VideoDetailsComponent {
           this.displayActors(this.serie);
           this.spinner.hide();
 
-          //Abonnement au changement sur userSerie 
+          //Abonnement au changement sur userSerie
           //(pour actualiser la page détail user-serie, notamment quand changement toggle status)
           this.userSerieService._userserie$ = new BehaviorSubject<any>(data);
-          this.userSerieService._userserie$.subscribe(data => 
+          this.userSerieService._userserie$.subscribe(data =>
             {
               this.userSeasons = data.userSeasons;
               this.userSerie = data;
@@ -156,7 +156,7 @@ export class VideoDetailsComponent {
       this.movie = data;
       this.loaded = true;
     }
-    
+
     //Gestion des acteurs pour affichage
     this.displayActors(this.movie);
     this.spinner.hide();
@@ -201,7 +201,7 @@ export class VideoDetailsComponent {
         }
       }
     }
-    
+
     return movieId;
   }
 
@@ -226,7 +226,7 @@ export class VideoDetailsComponent {
               //Mise à jour de la selection User
               this.userMovieService._usermovies$ = new BehaviorSubject<any>(response);
               this.userMovie = this.findUserVideByVideoId(response);
-              
+
               this.messageService.show("Film ajouté avec succès", "success");
               this.userOwned = "in";
               this.spinner.hide();
@@ -243,7 +243,7 @@ export class VideoDetailsComponent {
                     break;
                   default:
                     this.messageService.show("code Http: "+errorObj.description+ "description: "+errorObj.description, "error");
-                }          
+                }
               }
               this.spinner.hide();
             }
@@ -278,7 +278,7 @@ export class VideoDetailsComponent {
                   break;
                 default:
                   this.messageService.show("code Http: "+errorObj.description+ "description: "+errorObj.description, "error");
-              }          
+              }
             }
             this.spinner.hide();
           }
@@ -314,7 +314,7 @@ export class VideoDetailsComponent {
                   break;
                 default:
                   this.messageService.show("code Http: "+errorObj.description+ "description: "+errorObj.description, "error");
-              }          
+              }
             }
             this.spinner.hide();
           }
@@ -334,10 +334,8 @@ export class VideoDetailsComponent {
           next: (response:any) => {
             //Mise à jour de la selection User
             this.userSerieService._userseries$ = new BehaviorSubject<any>(response);
-            // this.userOwned = "out";
 
-            //TODO - Refresh de la page ou repartir sur /userAccueil
-            this.redirectTo(this.router.url.replace("/in/catalog", "/out/catalog"));
+            this.redirectTo("/details/"+ this.serie.id + "/Serie/out/catalog");
             this.messageService.show("Serie retirée du catalogue avec succès", "success");
             this.spinner.hide();
           },
@@ -350,7 +348,7 @@ export class VideoDetailsComponent {
                   break;
                 default:
                   this.messageService.show("code Http: "+errorObj.description+ "description: "+errorObj.description, "error");
-              }          
+              }
             }
             this.spinner.hide();
           }
@@ -376,5 +374,5 @@ export class VideoDetailsComponent {
     this.router.navigate([uri]));
  }
 
-  
+
 }
