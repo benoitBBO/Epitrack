@@ -13,8 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,6 +32,7 @@ public class MovieServiceTest {
     ICalculService calculService;
     Movie mockedMovie;
     Movie mockedExistingMovie;
+    List<Movie> mockedMovies;
 
     @BeforeEach
     public void init(){
@@ -48,10 +48,6 @@ public class MovieServiceTest {
         mockedMovie.setActors(new ArrayList<>());
         mockedMovie.setImdbRef("a125874");
         //...
-        when(movieRepository.save(mockedMovie)).thenReturn(mockedMovie);
-        when(movieRepository.findById(65L)).thenReturn(Optional.of(mockedMovie));
-        when(movieRepository.findByImdbRef("a125874")).thenReturn(Optional.empty());
-
         mockedExistingMovie = new Movie();
         mockedExistingMovie.setId(48L);
         mockedExistingMovie.setTitle("Titre film pour test create d'un movie déjà existant en base");
@@ -63,9 +59,14 @@ public class MovieServiceTest {
         mockedExistingMovie.setActors(new ArrayList<>());
         mockedExistingMovie.setImdbRef("a111");
         //...
-        when(movieRepository.findByImdbRef("a111")).thenReturn(Optional.of(mockedExistingMovie));
+        mockedMovies = Arrays.asList(mockedMovie, mockedExistingMovie);
 
+        when(movieRepository.save(mockedMovie)).thenReturn(mockedMovie);
+        when(movieRepository.findById(65L)).thenReturn(Optional.of(mockedMovie));
+        when(movieRepository.findByImdbRef("a125874")).thenReturn(Optional.empty());
+        when(movieRepository.findByImdbRef("a111")).thenReturn(Optional.of(mockedExistingMovie));
         when(movieRepository.findById(153L)).thenReturn(Optional.empty());
+        when(movieRepository.findAll()).thenReturn(Collections.unmodifiableList(mockedMovies));
 
     }
     @Test
@@ -88,5 +89,10 @@ public class MovieServiceTest {
     public void test_should_return_NotFoundException_when_findById_KO(){
         assertThrows(EntityNotFoundException.class,
                 () -> movieService.findById(153L));
+    }
+    @Test
+    public void test_should_return_movieList_when_findAll(){
+        assertThat(movieService.findAll().size()).isEqualTo(mockedMovies.size());
+        assertThat(movieService.findAll()).isEqualTo(mockedMovies);
     }
 }
