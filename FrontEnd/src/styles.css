@@ -19,3 +19,9 @@ h1 {
 }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.customH2 {
+    color: goldenrod;
+    margin: 0;
+    padding-top: 25px;
+}

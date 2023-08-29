@@ -1,13 +1,27 @@
-<div class="row text-center">
-    <div class="d-inline-block">
-        <div [class]="currentUrl === '/user' ? 'text-center d-md-inline-block marginCustom' : 'text-center d-md-inline-block marginCustom active'">
-            <i class="fas fa-film fa-2x"></i> <h2><a [class]="currentUrl === '/user' ? '' : 'active'" routerLink="/user/movies">Mes Films</a></h2>
+<ng-template [ngIf]="currentUrl === '/user'" [ngIfElse]="horsAcceuil">
+    <div class="row mb-2">
+        <div class="d-md-inline-block col-md-4  text-left">
+            <h2 class="customH2">Mes 4 meilleurs films</h2>
         </div>
-        <div *ngIf="currentUrl !== '/user'" class="text-center d-md-inline-block marginCustom">
-            <i class="fas fa-tv fa-2x"></i><h2><a routerLink="/user/series">Mes Séries</a></h2>
+        <div class="d-md-inline-block col-md-4 text-center">
+            <i class="fas fa-film fa-2x"></i> <h2><a routerLink="/user/movies">Mes Films</a></h2>
+        </div>
+        <div class="col-md-4 text-center"></div>
+    </div>
+</ng-template>
+
+<ng-template #horsAcceuil>
+    <div class="row mb-2 text-center">
+        <div class="d-inline-block">
+            <div class="text-center d-md-inline-block marginCustom active">
+                <i class="fas fa-film fa-2x"></i> <h2><a class="active" routerLink="/user/movies">Mes Films</a></h2>
+            </div>
+            <div class="text-center d-md-inline-block marginCustom">
+                <i class="fas fa-tv fa-2x"></i><h2><a routerLink="/user/series">Mes Séries</a></h2>
+            </div>
         </div>
     </div>
-</div>
+</ng-template>
 
 <!--Filters UserMovies-->
 <div id="divBtnsFiltersUser" *ngIf="currentUrl !== '/user'" class="mb-3">
