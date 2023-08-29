@@ -28,11 +28,11 @@ a {
 }
 
 .active {
-    color: goldenrod;
+    color: #ffa700;
 }
 
 .activeLink {
-    color: goldenrod !important;
+    color: #ffa700 !important;
 }
 
 #divBtnsFilters button {
