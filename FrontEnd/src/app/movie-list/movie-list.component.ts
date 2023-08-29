@@ -31,6 +31,7 @@ export class MovieListComponent {
   loggedUser!:UserModel;
   dynamicCatalog: any[] = [];
   currentUrl!: string;
+  pageloaded: boolean = false;
 
   constructor(private service: MovieService,
               private router:Router,
@@ -72,6 +73,7 @@ export class MovieListComponent {
             }
           }
         }
+        this.pageloaded = true;
         this.spinner.hide();
       });
     }

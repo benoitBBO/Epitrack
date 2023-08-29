@@ -31,6 +31,7 @@ export class SerieListComponent {
   loggedUser!:UserModel;
   dynamicCatalog: any[] = [];
   currentUrl!: string;
+  pageloaded: boolean = false;
   
   constructor(private service: SerieService,
               private router:Router,
@@ -71,6 +72,7 @@ export class SerieListComponent {
             }
           }
         }
+        this.pageloaded = true;
         this.spinner.hide();
       });
     }
