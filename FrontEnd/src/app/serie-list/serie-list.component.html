@@ -1,6 +1,6 @@
 <ngx-spinner type="ball-scale-multiple"><p style="color: white">Chargement...</p></ngx-spinner>
 <ng-template [ngIf]="currentUrl === '/'" [ngIfElse]="horsAcceuil">
-    <div class="row">
+    <div class="row mb-2">
         <div class="d-md-inline-block col-md-4  text-left">
             <h2 class="customH2">Le top 4 des meilleures séries</h2>
         </div>
@@ -12,7 +12,7 @@
 </ng-template>
 
 <ng-template #horsAcceuil>
-    <div class="row text-center">
+    <div class="row mb-2 text-center">
         <div class="d-inline-block">
             <div class="text-center d-md-inline-block marginCustom">
                 <i class="fas fa-film fa-2x"></i> <h2><a routerLink="/movies">Les Films</a></h2>
