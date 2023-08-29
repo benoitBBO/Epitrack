@@ -23,7 +23,6 @@ public class MovieServiceImpl implements IMovieService {
     @Override
     @Transactional
     public Long create(Movie movie) {
-        System.out.println("CREATE MOVIE Service "+ movie.getTitle());
         Optional<Movie> optionalMovie = movieRepository.findByImdbRef(movie.getImdbRef());
         if (optionalMovie.isPresent()){
             throw new ResourceAlreadyExistsException("Le film avec imdbRef "+movie.getImdbRef()+" existe déjà");

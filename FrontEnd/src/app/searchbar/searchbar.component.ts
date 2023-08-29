@@ -81,6 +81,7 @@ export class SearchbarComponent {
  isNotInCatalog(idVideo:Number, videoType: string){
   if(sessionStorage.length > 0){
     if(videoType === "Movie"){
+      this.userMovieService._usermovies$.subscribe(data => this.userMovies = data);
       for(let userMovie of this.userMovies){
         if(userMovie.movie.id === idVideo){
           return false;
@@ -88,6 +89,7 @@ export class SearchbarComponent {
       }
       return true;
     } else {
+      this.userSerieService._userseries$.subscribe(data => this.userSeries = data);
       for(let userSerie of this.userSeries){
         if(userSerie.serie.id === idVideo){
           return false;

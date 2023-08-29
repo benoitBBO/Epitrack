@@ -25,7 +25,6 @@ public class SerieServiceImpl implements ISerieService {
 
     @Override
     public Long create(Serie newSerie) {
-        System.out.println("CREATE SERIE "+ newSerie.getTitle());
         Optional<Serie> optionalSerie = serieRepository.findByTitleAndReleaseDate(newSerie.getTitle(), newSerie.getReleaseDate());
         if (optionalSerie.isPresent()){
             throw new ResourceAlreadyExistsException("La série avec title "+newSerie.getTitle()+" et releaseDate "+newSerie.getReleaseDate()+" existe déjà");
