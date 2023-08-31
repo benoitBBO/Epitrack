@@ -9,6 +9,7 @@ import { UsermovieModel } from '../shared/models/usermovie.model';
 import { UserMovieService } from '../shared/services/user-movie.service';
 import { UserserieModel } from '../shared/models/userserie.model';
 import { UserSerieService } from '../shared/services/user-serie.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-searchbar',
@@ -42,16 +43,22 @@ export class SearchbarComponent {
 
   onKeyUp(saisie: string){
     if (saisie.length > 2) {
-      this.movieService.searchMoviesFromApi(saisie)
-        .subscribe((movies:MovieModel[]) => {
-          this.searchVideos = [];
-          this.searchVideos.push(...movies)
-        });
-      this.serieService.searchSeriesFromApi(saisie)
-        .subscribe((series:SerieModel[]) => {
-          this.searchVideos.push(...series)
-          this.noResult = true;
-        });
+      let requests = [
+        this.movieService.searchMoviesFromApi(saisie),
+        this.serieService.searchSeriesFromApi(saisie)
+      ];
+
+      forkJoin(requests).subscribe((responses:any[]) => {
+        this.searchVideos = [];
+        if(responses[0].length > 0){
+          this.searchVideos.push(...responses[0]);
+        }
+        if(responses[1].length > 0){
+          this.searchVideos.push(...responses[1]);
+        }
+        
+        this.noResult = true;
+      });
     } else {
       this.searchVideos = [];
       this.noResult = false;
