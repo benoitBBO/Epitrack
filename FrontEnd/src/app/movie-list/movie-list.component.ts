@@ -181,6 +181,7 @@ export class MovieListComponent {
     this.displaySort = "Ordre alphabétique (Z-A)";
     this.displayBtnSort = true;
     this.btnsSortClass = "btn btn-warning btn-sm";
+    
   }
 
   onClickSortByRatingAsc(){
@@ -214,13 +215,20 @@ export class MovieListComponent {
   }
 
   onClickResetSort(){
-    this.movies = this.originalMovies;
+    if(this.genreFiltered === ""){
+      this.movies = this.originalMovies;
+    } else  {
+      this.onClickFilter(this.genreFiltered);
+    }
+    this.displaySort = "";
     this.displayBtnSort = false;
     this.btnsSortClass = "btn btn-light btn-sm";
   }
 
   onClickResetFilter(){
     this.movies = this.originalMovies;
+    this.activateDisplaySortIfNeeded();
+    this.genreFiltered = "";
     this.displayResetFiterBtn = false;
     this.btnsFilterClass = "btn btn-light btn-sm";
   }
@@ -236,8 +244,30 @@ export class MovieListComponent {
         return false;
       }
     );
+    
     this.genreFiltered = genre;
     this.displayResetFiterBtn = true;
     this.btnsFilterClass = "btn btn-warning btn-sm";
+
+    if(this.displaySort !== ""){
+      this.activateDisplaySortIfNeeded();
+    }
+  }
+
+  activateDisplaySortIfNeeded(){
+    switch(this.displaySort){
+      case "Ordre alphabétique (A-Z)" : 
+        this.onClickSortByAlphabeticalOrderAz();
+        break;
+      case "Ordre alphabétique (Z-A)" : 
+        this.onClickSortByAlphabeticalOrderZa();
+        break;
+      case "Notation (Croissante)" : 
+        this.onClickSortByRatingAsc();
+        break;
+      case "Notation (Décroissante)" : 
+        this.onClickSortByRatingDsc();
+        break;
+    }
   }
 }
