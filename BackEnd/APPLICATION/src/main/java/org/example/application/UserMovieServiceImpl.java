@@ -27,6 +27,7 @@ public class UserMovieServiceImpl implements IUserMovieService {
         if (userMovieOptional.isPresent()){
             throw new ResourceAlreadyExistsException();
         }
+        userMovie.setUserRating(0);
         userMovieRepository.save(userMovie);
 
         return userMovieRepository.findAllByUserIdOrderByUserRatingDesc(userMovie.getUser().getId());
