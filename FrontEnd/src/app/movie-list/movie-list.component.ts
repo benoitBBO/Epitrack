@@ -151,6 +151,7 @@ export class MovieListComponent {
 
   loadingDynamicCatalogVariable(){
     if(sessionStorage.length > 0){
+      this.dynamicCatalog = [];
       for(let movie of this.movies){
         this.dynamicCatalog.push(this.isNotInCatalog(movie.id));
       }
@@ -174,6 +175,7 @@ export class MovieListComponent {
     this.displaySort = "Ordre alphabétique (A-Z)";
     this.displayBtnSort = true;
     this.btnsSortClass = "btn btn-warning btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickSortByAlphabeticalOrderZa(){
@@ -181,7 +183,7 @@ export class MovieListComponent {
     this.displaySort = "Ordre alphabétique (Z-A)";
     this.displayBtnSort = true;
     this.btnsSortClass = "btn btn-warning btn-sm";
-    
+    this.loadingDynamicCatalogVariable();    
   }
 
   onClickSortByRatingAsc(){
@@ -197,6 +199,7 @@ export class MovieListComponent {
     this.displaySort = "Notation (Croissante)";
     this.displayBtnSort = true;
     this.btnsSortClass = "btn btn-warning btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickSortByRatingDsc(){
@@ -212,6 +215,7 @@ export class MovieListComponent {
     this.displaySort = "Notation (Décroissante)";
     this.displayBtnSort = true;
     this.btnsSortClass = "btn btn-warning btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickResetSort(){
@@ -223,6 +227,7 @@ export class MovieListComponent {
     this.displaySort = "";
     this.displayBtnSort = false;
     this.btnsSortClass = "btn btn-light btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickResetFilter(){
@@ -231,6 +236,7 @@ export class MovieListComponent {
     this.genreFiltered = "";
     this.displayResetFiterBtn = false;
     this.btnsFilterClass = "btn btn-light btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickFilter(genre:string){
@@ -252,6 +258,8 @@ export class MovieListComponent {
     if(this.displaySort !== ""){
       this.activateDisplaySortIfNeeded();
     }
+
+    this.loadingDynamicCatalogVariable();
   }
 
   activateDisplaySortIfNeeded(){

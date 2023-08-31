@@ -145,6 +145,7 @@ export class SerieListComponent {
 
   loadingDynamicCatalogVariable(){
     if(sessionStorage.length > 0){
+      this.dynamicCatalog = [];
       for(let serie of this.series){
         this.dynamicCatalog.push(this.isNotInCatalog(serie.id));
       }
@@ -168,6 +169,7 @@ export class SerieListComponent {
     this.displaySort = "Ordre alphabétique (A-Z)";
     this.displayBtnSort = true;
     this.btnsSortClass = "btn btn-warning btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickSortByAlphabeticalOrderZa(){
@@ -175,6 +177,7 @@ export class SerieListComponent {
     this.displaySort = "Ordre alphabétique (Z-A)";
     this.displayBtnSort = true;
     this.btnsSortClass = "btn btn-warning btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickSortByRatingAsc(){
@@ -190,6 +193,7 @@ export class SerieListComponent {
     this.displaySort = "Notation (Croissante)";
     this.displayBtnSort = true;
     this.btnsSortClass = "btn btn-warning btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickSortByRatingDsc(){
@@ -205,18 +209,28 @@ export class SerieListComponent {
     this.displaySort = "Notation (Décroissante)";
     this.displayBtnSort = true;
     this.btnsSortClass = "btn btn-warning btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickResetSort(){
-    this.series = this.originalSeries;
+    if(this.genreFiltered === ""){
+      this.series = this.originalSeries;
+    } else  {
+      this.onClickFilter(this.genreFiltered);
+    }
+    this.displaySort = "";
     this.displayBtnSort = false;
     this.btnsSortClass = "btn btn-light btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickResetFilter(){
     this.series = this.originalSeries;
+    this.activateDisplaySortIfNeeded();
+    this.genreFiltered = "";
     this.displayResetFiterBtn = false;
     this.btnsFilterClass = "btn btn-light btn-sm";
+    this.loadingDynamicCatalogVariable();
   }
 
   onClickFilter(genre:string){
@@ -233,5 +247,28 @@ export class SerieListComponent {
     this.genreFiltered = genre;
     this.displayResetFiterBtn = true;
     this.btnsFilterClass = "btn btn-warning btn-sm";
+
+    if(this.displaySort !== ""){
+      this.activateDisplaySortIfNeeded();
+    }
+
+    this.loadingDynamicCatalogVariable();
+  }
+
+  activateDisplaySortIfNeeded(){
+    switch(this.displaySort){
+      case "Ordre alphabétique (A-Z)" : 
+        this.onClickSortByAlphabeticalOrderAz();
+        break;
+      case "Ordre alphabétique (Z-A)" : 
+        this.onClickSortByAlphabeticalOrderZa();
+        break;
+      case "Notation (Croissante)" : 
+        this.onClickSortByRatingAsc();
+        break;
+      case "Notation (Décroissante)" : 
+        this.onClickSortByRatingDsc();
+        break;
+    }
   }
 }
